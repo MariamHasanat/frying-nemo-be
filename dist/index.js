@@ -1,11 +1,27 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import { Item } from './models/index.js';
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 app.get('/', (req, res) => {
     res.send('Express + TypeScript Server');
+});
+app.get('/createItem', (req, res) => {
+    const newItem = new Item({
+        name: "Maqlooba",
+        price: 40,
+        ingredients: ["rice", "chicken"],
+        description: "The best dish that you may eat in the world :)"
+    });
+    newItem.save()
+        .then(() => {
+        res.send("Item is added into the data base :)");
+    })
+        .catch(error => {
+        res.status(500).send("Something went wrong, item not added");
+    });
 });
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
