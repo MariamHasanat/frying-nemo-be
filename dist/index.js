@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import itemsRoute from './routes/items.js';
-import userRoute from './routes/users.js';
+import itemsRoute from './routes/items.route.js';
+import userRoute from './routes/users.route.js';
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
