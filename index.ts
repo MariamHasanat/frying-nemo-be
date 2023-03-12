@@ -14,19 +14,19 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/createItem', (req, res) => {
-  const newItem = new Item ({
-    name:"Maqlooba",
-    price:40,
-    ingredients:["rice" , "chicken"],
-    description:"The best dish that you may eat in the world :)"
+  const newItem = new Item({
+    name: "Maqlooba",
+    price: 40,
+    ingredients: ["rice", "chicken"],
+    description: "The best dish that you may eat in the world :)"
   })
   newItem.save()
-  .then (()=> {
-    res.send("Item is added into the data base :)")
-  })
-  .catch(error => {
-    res.status(500).send("Something went wrong, item not added")
-  })
+    .then(() => {
+      res.send("Item is added into the data base :)")
+    })
+    .catch(error => {
+      res.status(500).send("Something went wrong, item not added")
+    })
 })
 
 app.listen(port, () => {
