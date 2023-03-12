@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const mongooseSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     imageUrl: String,
     description: String,
@@ -15,7 +16,7 @@ const mongooseSchema = new mongoose.Schema({
         type: [String],
         default: []
     },
-    category: [String]
+    category: String
 })
 
 const Item = mongoose.model('Items', mongooseSchema);
