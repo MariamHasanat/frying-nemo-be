@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -11,5 +12,19 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+  console.log(`⚡️[server]: Server is running at http://127.0.0.1:${port}`);
+  dbConnect();
+
 });
+const dbConnect = () => {
+
+  mongoose.connect("mongodb://127.0.0.1:27017/frying-nemo")
+    .then(() => {
+      console.log(`[server]: Connect to MongoDB`)
+    }).catch((err) => {
+      console.log(`[server]: failed to connect ${err}`)
+
+    })
+
+
+}
