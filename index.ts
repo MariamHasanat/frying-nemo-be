@@ -2,12 +2,14 @@ import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import Item from './models/item.js';
+import router from './routes/items.js';
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
-
+app.use(express.json())
+app.use('/items',router)
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server + Hello World');
 });
@@ -43,9 +45,9 @@ const dbConnect = () => {
 
   mongoose.connect("mongodb://127.0.0.1:27017/frying-nemo")
     .then(() => {
-      console.log(`[server]: Connect to MongoDB`)
+      console.log(`[server]: Connect to MongoDB :)`)
     }).catch((err) => {
-      console.log(`[server]: failed to connect ${err}`)
+      console.log(`[server]: failed to connect :( ${err}`)
 
     })
 
