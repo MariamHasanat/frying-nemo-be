@@ -1,1 +1,1 @@
-export {default as item} from './item.model.js'
+export {default as item} from './item.model'
