@@ -1,9 +1,12 @@
 import express, { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { Item } from './models/index';
+import { item } from './routers/index';
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
+
+app.use('/items',item);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
