@@ -1,12 +1,14 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import { Item } from "./models/index.js";
+import { Item } from "./models/index";
+import { itemRouter } from "./routes/index";
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
-
+app.use(express.json())
+app.use('/items', itemRouter);
 app.get("/", (req: Request, res: Response) => {
   res.send("Express " + "TypeScript Server " + "Hello World");
 });
@@ -21,12 +23,14 @@ app.get('/createItemTmp', (req: Request, res: Response) =>{
   });
   newItem.save().then(()=>console.log('item added succesfully'));
   res.status(200).send('item added succesfully');
-  
+
 })
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
   dbConnect();
 });
+
+
 
 const dbConnect = () => {
   console.log('⚡️[server]: connecting to DB...')
