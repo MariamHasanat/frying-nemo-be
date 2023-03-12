@@ -40,9 +40,9 @@ const dbConnect = () => {
   console.log("connecting to db...");
   mongoose.connect("mongodb://127.0.0.1:27017/frying-nemo")
     .then(() => {
-      console.log(`🤗 [server]: Connected to MongoDB`);
+      console.log(`😄 👏 [server]: Connected to MongoDB`);
     })
     .catch((err) => {
-      console.log(`🤨 [server]: Failed to connect to mongodb ${err}`);
+      console.log(`🥺 💔 [server]: Failed to connect to mongodb ${err}`);
     });
 }
