@@ -1,5 +1,6 @@
-import express, { Express, json, Request, Response } from 'express';
+import express, { Express, json } from 'express';
 import mongoose from 'mongoose';
+import { itemRouter } from './routes';
 
 const app: Express = express();
 const port = 3009;
@@ -15,6 +16,8 @@ database.once('connected', () => {
 database.on('error', (err) => {
   console.error(err)
 });
+
+app.use('/items', itemRouter);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: server is running at http://localhost:${port}`);

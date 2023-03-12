@@ -5,7 +5,7 @@ const itemSchema = new mongoose.Schema({
         type: String,
     },
     imageUrl: {
-        type: String
+        type: 'String'
     },
     description: {
         type: String
