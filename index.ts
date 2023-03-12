@@ -9,7 +9,7 @@ const app: Express = express();
 const port = process.env.PORT || 3001;
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Your Server is working fine!');
+  res.send('Your Server is Working Fine 🤩');
 });
 
 app.get('/createItemTmp', (req: Request, res: Response) => {
