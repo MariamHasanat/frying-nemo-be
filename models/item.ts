@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
-const itemSchema = new mongoose.Schema({
+import IItem from "../types";
+
+const itemSchema = new mongoose.Schema<IItem>({
     id: Number,
     name: {
         type: String,
     },
     imageUrl: {
-        type: 'String'
+        type: String
     },
     description: {
         type: String

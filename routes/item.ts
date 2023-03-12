@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { MongooseError } from "mongoose";
 import Item from "../models/item.js";
 import IItem from "../types.js";
 
@@ -14,7 +15,7 @@ router.get('/:id', async (req: Request, res: Response) => {
     res.send(result);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req: Request<{}, {}, IItem>, res) => {
 
     const item = new Item({
         name: req.body.name,
@@ -22,9 +23,16 @@ router.post('/', async (req, res) => {
         category: req.body.category
     });
 
+
     try {
-        item.save();
-        res.status(200).send('Item added successfully');
+        item.validate()
+            .then(() => {
+                item.save();
+                res.status(200).send('Item added successfully');
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     } catch (error: any) {
         res.status(500).send(error.message).end()
         console.error(error.message);
