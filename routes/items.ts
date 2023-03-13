@@ -1,5 +1,6 @@
 import express from 'express'
 import Item from '../models/items';
+import { IItemRequest } from '../types/index';
 
 const itemsRouter = express.Router() ;
 
@@ -10,7 +11,7 @@ itemsRouter.get('/' , async (req , res) => {
 })
 
 // to add new item into the data base
-itemsRouter.post ('/' , (req , res) => {
+itemsRouter.post ('/' , (req:IItemRequest , res) => {
     const newItem = new Item({
         name : req.body.name , 
         price: req.body.price , 
