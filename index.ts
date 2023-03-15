@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { itemRouter } from './routes';
 
 const app: Express = express();
-const port = 3009;
+const port = 3006;
 app.use(json());
 
 mongoose.connect('mongodb://127.0.0.1:27017/frying-nemo', {});

@@ -1,5 +1,4 @@
 import { Router, Request, Response } from "express";
-import { MongooseError } from "mongoose";
 import Item from "../models/item.js";
 import IItem from "../types.js";
 
@@ -15,6 +14,11 @@ router.get('/:id', async (req: Request, res: Response) => {
     res.send(result);
 });
 
+router.delete('/:id', async (req, res) => {
+    const itemId = req.params.id;
+    const result = await Item.deleteOne({ name: itemId });
+    res.status(200).send('deleted successfully');
+})
 router.post('/', async (req: Request<{}, {}, IItem>, res) => {
 
     const item = new Item({
@@ -22,7 +26,6 @@ router.post('/', async (req: Request<{}, {}, IItem>, res) => {
         description: req.body.description,
         category: req.body.category
     });
-
 
     try {
         item.validate()
