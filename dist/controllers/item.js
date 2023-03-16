@@ -9,7 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import Item from "../models/item.js";
 const getItems = (params) => __awaiter(void 0, void 0, void 0, function* () {
-    const items = yield Item.find();
+    const query = {};
+    if (params.maxPrice !== undefined) {
+        query.price = { $lte: params.maxPrice };
+    }
+    if (params.category) {
+        query.category = { $lte: params.category };
+    }
+    if (params.searchItem) {
+        query.searchItem = { $lte: params.searchItem };
+    }
+    const items = yield Item.find(query);
     return items;
 });
 const createItem = (data) => {
