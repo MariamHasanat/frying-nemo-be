@@ -1,1 +1,1 @@
-export {default as itemController} from "./items"
+export {default as itemController} from "./item.controller"

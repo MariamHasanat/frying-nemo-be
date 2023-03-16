@@ -1,1 +1,1 @@
-export {default as itemsRouter} from './items';
+export {default as itemsRouter} from './item.router';

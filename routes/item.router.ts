@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import Item from '../models/item';
+import Item from '../models/item.model';
 import { IItemRequest } from '../types/index';
 import { itemController } from '../controllers/index'
 
