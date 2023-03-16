@@ -3,10 +3,9 @@ import mongoose from 'mongoose';
 import { Item } from './models/index.js';
 import itemRouter from './router/items.router.js'
 
-
-
 const app: Express = express();
 const port = process.env.PORT || 3001;
+app.use(express.json())
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Your Server is working fine!');

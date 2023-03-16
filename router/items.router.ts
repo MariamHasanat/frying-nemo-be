@@ -5,7 +5,7 @@ import itemsController from '../controller/items.controller.js';
 
 const router = express.Router();
 router.get('/', async (req, res) => {
-  const items = itemsController.getItems();
+  const items = await itemsController.getItems(req.query);
   res.status(200).send(items);
 })
 
