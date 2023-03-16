@@ -1,11 +1,11 @@
 import Item from "../models/items";
-import { IItem } from "../types/index";
+import { MenuItem } from "../types/index";
 
-const getItems = async() => {
+const getItems = async(params:MenuItem.IQuery) => {
     return await Item.find(); //it returns the items as array of js objects
 }
 
-const createItem = (item: IItem) => {
+const createItem = (item: MenuItem.IItem) => {
     const newItem = new Item({
         name : item.name , 
         price: item.price , 
