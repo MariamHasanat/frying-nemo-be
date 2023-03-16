@@ -16,11 +16,11 @@ app.get('/createItemTmp', (req: Request, res: Response) => {
 
   // when you use the postman, the url which you should use is the url for node express application, hence you will use the localhost/3001 , not the url for the server of the mongodb
   const createNewItem = new Item({
-    name: "Kunafa",
+    name: "Qatayef",
     category: "desalination",
-    ingredients: ["sugar", "cheese", "kunafa dough"],
+    ingredients: ["sugar", "cheese", "qatayef dough"],
     description: "something tasty",
-    price: 10.15
+    price: 7.5
   })
   createNewItem.save()
     .then(
