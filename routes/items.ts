@@ -6,7 +6,7 @@ const itemsRouter = express.Router() ;
 
 //to retrieve the whole items in the data base 
 itemsRouter.get('/' , async (req , res) => {
-    const items = await Item.find();
+    const items = await Item.find(); //it returns the items as array of js objects
     res.status(200).send(items);
 })
 

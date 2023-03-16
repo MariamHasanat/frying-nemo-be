@@ -19,5 +19,7 @@ const mongooseSchema = new mongoose.Schema({
     category: String
 })
 
-const Item = mongoose.model('Items', mongooseSchema);
+// this line initialze the collection in the database if it's not exists 
+//it also returns an object for this table which helps to deal with this collection in the code
+const Item = mongoose.model('Items', mongooseSchema);  
 export default Item;
