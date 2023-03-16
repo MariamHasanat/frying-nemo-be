@@ -8,13 +8,14 @@ const router = express.Router();
 router.use(express.json());
 
 router.get('/', async (req, res) => {
-  // it is like select all documents and return it ...  
+  // it is like select all documents and return it filtered by query 
   const items = await itemController.getItems(req.query);
   res.status(201).send(items);
+
 });
+
+
 router.post('/', (req: IMenuItem.IItemRequest, res) => {
-
-
   if (!req.body.name || !req.body.category) {
     return res.status(401).send("name and category are required !").end();
   }
