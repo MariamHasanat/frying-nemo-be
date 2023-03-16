@@ -1,10 +1,9 @@
 import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { Item } from './models/index.js';
-import itemRouter from './router/items.js'
+import itemRouter from './router/items.router.js'
 
-dotenv.config();
+
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
@@ -13,7 +12,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Your Server is working fine!');
 });
 
-app.use('/items' , itemRouter)
+app.use('/items', itemRouter)
 app.get('/createItemTmp', (req: Request, res: Response) => {
 
   const newItem = new Item({
