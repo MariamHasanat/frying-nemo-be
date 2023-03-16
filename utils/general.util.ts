@@ -1,0 +1,5 @@
+const isNumber = (value: any): boolean => {
+    return typeof value == "number" && isFinite(value);
+}
+
+export { isNumber }

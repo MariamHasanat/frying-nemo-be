@@ -11,7 +11,10 @@ const itemSchema = new Schema({
         validate: (url: String) => url.startsWith("https://")
     },
     description: String,
-    price: Number,
+    price: {
+        type: Number,
+        required: true,
+    },
     category: {
         type: String,
         required: true,
