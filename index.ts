@@ -20,7 +20,9 @@ app.get('/createItemTmp', (req: Request, res: Response) => {
     ingredients: ['rice', 'water', 'salt', 'chicken'],
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam architecto illo facere, officiis ab, vitae itaque voluptatem repudiandae perspiciatis',
     price: 20.5
-  });
+  },
+
+  );
 
   newItem.save()
     .then(() => {
