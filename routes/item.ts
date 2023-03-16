@@ -1,12 +1,13 @@
 import { Router, Request, Response } from "express";
 import Item from "../models/item.js";
-import { IItem } from "../types/item.js";
+import { MenuItem } from "../types/item.js";
 import itemController from '../controllers/item';
 
 const router = Router();
 
-router.get('/', async (req: Request, res: Response) => {
-    const result = await itemController.getItems();
+router.get('/', async (req: MenuItem.IItemRequest, res: Response) => {
+    const query = req.query;
+    const result = await itemController.getItems(query);
     res.send(result);
 });
 
@@ -20,7 +21,7 @@ router.delete('/:id', async (req, res) => {
     const result = await Item.deleteOne({ name: itemId });
     res.status(200).send('deleted successfully');
 })
-router.post('/', async (req: Request<{}, {}, IItem>, res) => {
+router.post('/', async (req: Request<{}, {}, MenuItem.IItem>, res) => {
 
     const item = new Item({
         name: req.body.name,
