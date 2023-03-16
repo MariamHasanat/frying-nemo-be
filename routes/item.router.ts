@@ -28,16 +28,7 @@ router.post('/', (req: IItemRequest, res) => {
         return;
     }
 
-    const newItem = new Item({
-        name: body.name,
-        category: body.category,
-        price: body.price,
-        ingredients: body.ingredients,
-        description: body.description,
-        imageURL: body.imageURL
-    })
-
-    newItem.save()
+    itemController.createItem(body)
         .then(() => {
             res.send('successfully added');
         })
