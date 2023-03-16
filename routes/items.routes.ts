@@ -1,11 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
-import Item from "../models/item";
+import itemController  from "../controllers/item.controllers";
+import Item from "../models/item.model";
 import { IItemRequest } from "../types/index";
 const router = express.Router();
 
 router.get('/',async (req,res)=>{
-    const items = await Item.find();
+    const items = await itemController.getItems(req.query);
     res.status(200).send(items);
 });
 router.post('/',async(req: IItemRequest,res)=>{

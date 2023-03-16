@@ -3,7 +3,8 @@ import mongoose, { Schema } from "mongoose";
 const ItemModel = new mongoose.Schema({
     name: {
         required: true,
-        type: String
+        type: String,
+        unique: true
     },
     imageUrl: String,
     description: String,

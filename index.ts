@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
-import itemsRouter from './routes/items';
+import itemsRouter from './routes/items.routes';
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
