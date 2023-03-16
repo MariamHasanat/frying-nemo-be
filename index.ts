@@ -1,15 +1,15 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Item from './models/item.js';
-import router from './routes/items.js';
+import Item from './models/item.moudel.js';
+import router from './routes/items.router.js';
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
 app.use(express.json())
-app.use('/items',router)
+app.use('/items', router)
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server + Hello World');
 });
@@ -41,8 +41,9 @@ app.listen(port, () => {
   dbConnect();
 
 });
-const dbConnect = () => {
 
+
+const dbConnect = () => {
   mongoose.connect("mongodb://127.0.0.1:27017/frying-nemo")
     .then(() => {
       console.log(`[server]: Connect to MongoDB :)`)

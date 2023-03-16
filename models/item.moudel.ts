@@ -22,6 +22,7 @@ const ItemSchema = new mongoose.Schema({
     },
 
 });
+//create table in the DB if not exist and return object 
 const Item =mongoose.model("Item",ItemSchema);
 export default Item;
 
