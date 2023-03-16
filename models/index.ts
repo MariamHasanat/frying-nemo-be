@@ -1,1 +1,1 @@
-export {default as Item }from './items.js'
+export {default as Item }from './items.moddel.js'

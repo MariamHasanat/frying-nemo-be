@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { Item } from './models/index.js';
-import itemsRouter from './routes/items.js';
+import itemsRouter from './routes/items.router.js';
 
 dotenv.config();
 
@@ -34,12 +34,12 @@ app.get('/createItem', (req, res) => {
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-  dbConnect();
+  dbConnect();//connect to database 
 });
 
 const dbConnect = () => {
   console.log("connecting to the data base ...");
-
+ //show moongoos website
   mongoose.connect("mongodb://127.0.0.1:27017/frying-nemo") // this function accepts uri string that consists of this parts : mongodb://host-name:port/DB-name
     .then(() => {
       console.log("Server connected to the data base successfully !")

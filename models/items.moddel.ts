@@ -18,5 +18,5 @@ const mongooSchema = new mongoose.Schema({
  },
  category:String
 })
-const Item = mongoose.model('Item',mongooSchema);
+const Item = mongoose.model('Item',mongooSchema);//برجع اوبجيكت  فيو التابل او بنشا واحد تانب 
 export default Item;
