@@ -14,7 +14,13 @@ const getItems = async (params: IItemQuery) => {
   }
 
   if (params.searchItem){
-    query.searchItem = {$lte: params.searchItem}
+   const qReg = new RegExp(params.searchItem, 'i');
+
+   query.$or = [
+    {name: qReg},
+    {description: qReg},
+    { category: qReg },
+   ]
   }
 
   const items = await Item.find(query)

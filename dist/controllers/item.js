@@ -17,7 +17,12 @@ const getItems = (params) => __awaiter(void 0, void 0, void 0, function* () {
         query.category = { $lte: params.category };
     }
     if (params.searchItem) {
-        query.searchItem = { $lte: params.searchItem };
+        const qReg = new RegExp(params.searchItem, 'i');
+        query.$or = [
+            { name: qReg },
+            { description: qReg },
+            { category: qReg },
+        ];
     }
     const items = yield Item.find(query);
     return items;
