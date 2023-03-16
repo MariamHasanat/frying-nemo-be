@@ -21,3 +21,6 @@ export interface IItemQuery {
 export interface IItemRequest extends express.Request {
     body: IItem
 }
+
+// export interface IItemRequest extends express.Request<{}, {}, IItem, IItemQuery> {
+// }
