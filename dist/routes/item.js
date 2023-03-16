@@ -9,9 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import express from "express";
 import Item from "../models/item.js";
+import itemController from '../controllers/item.js';
 const router = express.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const items = yield Item.find();
+    const items = yield itemController.getItems(req.query);
     res.send(items);
 }));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -26,8 +27,8 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         category: req.body.category,
         ingredients: req.body.ingredients,
         description: req.body.description,
-        price: req.body.price,
     });
+    newItem.price = req.body.price || 10;
     newItem.save()
         .then(() => {
         res.status(201).send();
@@ -37,3 +38,4 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500);
     });
 }));
+export default router;

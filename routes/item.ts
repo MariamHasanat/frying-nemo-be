@@ -1,17 +1,18 @@
 import express from "express";
 import mongoose from "mongoose";
 import Item from "../models/item.js";
-
+import { ItemRequest } from "../type/index.js";
+import itemController from  '../controllers/item.js';
 
 const router = express.Router();
 
 
 router.get('/', async(req, res) =>{
-    const items = await Item.find();
+    const items = await itemController.getItems(req.query);
     res.send(items)
 });
 
-router.post('/', async(req, res) =>{
+router.post('/', async(req: ItemRequest, res) =>{
     if (!req.body.name || !req.body.category ){
         return res.status(400).send("name and category are required!");
     }
@@ -23,8 +24,9 @@ router.post('/', async(req, res) =>{
         category:req.body.category,
         ingredients: req.body.ingredients,
         description: req.body.description,
-        price: req.body.price,
       });
+
+      newItem.price = req.body.price || 10;
 
       newItem.save()
          .then(()=>{
@@ -36,3 +38,4 @@ router.post('/', async(req, res) =>{
          })
 });
 
+export default router

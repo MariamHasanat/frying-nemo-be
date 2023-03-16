@@ -1,8 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import Item from './models/item.js';
-import router from './routes/item.js';
+import itemsRouter from './routes/item.js'
 
 
 dotenv.config();
@@ -10,28 +9,14 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 3001;
 
+app.use(express.json());
+app.use('/items', itemsRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server + Hello World');
 });
 
-app.get('/createItem', (req: Request, res: Response) => {
 
-  const newItem = new Item({
-    name: 'Maklooba',
-    category: 'Main',
-    ingredients: ['fh', 'gsdg', 'sdgs'],
-    description: 'hfkhfiakwj',
-    price: 23
-  });
-  newItem.save().then(()=>{
-    res.send("Item should ba added")
-  })
-  .catch((err: mongoose.Error) =>{
-    res.status(500).send("faild to add")
-  })
- 
-});
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
