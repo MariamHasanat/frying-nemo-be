@@ -1,6 +1,5 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { Item } from './models/index';
 import mongoose, { MongooseError } from 'mongoose';
 import { itemsRouter } from './routers/index';
 import { logger } from './middleware/index';

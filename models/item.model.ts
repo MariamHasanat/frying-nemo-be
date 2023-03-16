@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const itemSchema = new mongoose.Schema({
     name: {
@@ -19,7 +19,6 @@ const itemSchema = new mongoose.Schema({
         type: [String],
         default: [],
     }
-
 });
 
 const Item = mongoose.model('Item', itemSchema);

@@ -1,21 +1,17 @@
 import { Router, Request, Response } from 'express';
 import { MongooseError } from 'mongoose';
-import Item from '../models/item';
-import { IItemRequest } from '../types/types';
+import Item from '../models/item.model';
+import { MenuItems } from '../types/item.type';
+import itemController from '../controllers/item.controller';
 
 const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
-    try {
-        const items = await Item.find();
-        res.send({ status: 'OK', items: items });
-    } catch (error) {
-        console.error(error);
-        res.send({ status: 'Failed', items: error });
-    }
+    const items = await itemController.getItems(req.query);
+    res.send({ status: 'OK', result: { total: items.length, items } });
 });
 
-router.post('/', async (req: IItemRequest, res: Response) => {
+router.post('/', async (req: MenuItems.IRequest, res: Response) => {
     if (!req.body.name || !req.body.category) {
         res.status(400).send('Name and Category are required');
         return;
@@ -47,3 +43,7 @@ router.post('/', async (req: IItemRequest, res: Response) => {
 });
 
 export default router;
+
+function getItems() {
+    throw new Error('Function not implemented.');
+}
