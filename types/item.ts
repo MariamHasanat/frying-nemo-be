@@ -1,4 +1,6 @@
-interface IItem {
+import express from "express";
+
+export interface IItem {
     id: number;
     name: string;
     imageUrl: string;
@@ -8,4 +10,6 @@ interface IItem {
     ingredients: String[];
 }
 
-export default IItem;
+export interface IItemRequest extends express.Request {
+    body: IItem;
+}

@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import Item from "../models/item.js";
-import IItem from "../types.js";
+import { IItem } from "../types/item.js";
 
 const router = Router();
 

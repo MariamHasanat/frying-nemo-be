@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import IItem from "../types";
+import { IItem, IItemRequest } from "../types/item";
 
 const itemSchema = new mongoose.Schema<IItem>({
     id: Number,
@@ -14,7 +14,7 @@ const itemSchema = new mongoose.Schema<IItem>({
     },
     price: Number,
     category: {
-        type: String
+        type: String,
     },
     ingredients: {
         type: [String]
