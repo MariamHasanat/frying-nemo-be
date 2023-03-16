@@ -1,3 +1,5 @@
+import express from "express";
+
 interface IItem {
     name: string;
     imageUrl: string;
@@ -6,7 +8,12 @@ interface IItem {
     category: string;
     ingredients: string[];
 };
-
-export interface IItemRequest extends Express.Request{
+export interface IItemQuery{
+    category?: string;
+    searchTerms?: string;
+    page?: number;
+    maxPrice?: number;
+}
+export interface IItemRequest extends express.Request{
     body: IItem
 };

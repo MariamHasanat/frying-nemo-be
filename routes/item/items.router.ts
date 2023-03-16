@@ -1,12 +1,18 @@
 import { Response, Request, Router } from "express";
 import { Item } from "../../models/index";
 import { IItemRequest } from "../../types/index";
+import itemController from "../../controllers/item";
 const router = Router();
 router.put("/:id", (req: Request, res: Response) => {});
 
 router.get("/", async (req: Request, res: Response) => {
-  const items = await Item.find();
-  res.status(200).send(items);
+  try {
+    const items = await itemController.getItems(req.query)
+    res.status(200).send(items);
+  } catch (error) {
+    console.debug("from items: ",error);
+    res.status(400);
+  }
 });
 
 router.post("/", (req: IItemRequest, res: Response) => {
