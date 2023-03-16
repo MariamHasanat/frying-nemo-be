@@ -1,8 +1,12 @@
 import { Item } from "../models/index";
-import { IItem } from "../types/index";
+import { IItem, IItemQuery } from "../types/index";
 
-const getItems = async () => {
-    const items = await Item.find();
+const getItems = async (query: IItemQuery) => {
+    const items = await Item.find({
+        price: {
+            $lte: query.maxPrice
+        }
+    });
     return items;
 }
 
@@ -15,7 +19,7 @@ const createItem = (body: IItem) => {
         description: body.description,
         imageURL: body.imageURL
     })
-
+    
     return newItem.save() // returning a promise
 }
 

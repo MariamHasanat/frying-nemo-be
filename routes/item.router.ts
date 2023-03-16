@@ -8,8 +8,8 @@ const router = Router();
 /**
  * returns a list of items
  */
-router.get('/', async (req, res) => {
-    const items = await itemController.getItems();
+router.get('/', async (req: IItemRequest, res) => {
+    const items = await itemController.getItems(req.query);
     res.send(items);
 });
 

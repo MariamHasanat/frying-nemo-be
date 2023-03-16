@@ -10,7 +10,7 @@ export interface IItem {
 
 export interface IItemQuery {
         category?: string,
-        searchTerms: string,
+        searchTerms?: string,
         page?:number,
         maxPrice?:number
 }
