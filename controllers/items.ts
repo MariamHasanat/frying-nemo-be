@@ -8,7 +8,7 @@ const getItems = async (params: MenuItem.IQuery) => {
         query = { ...query, price: { $lte: params.maxPrice } }
     if (params.category !== undefined)
         query = { ...query, category: { $eq: params.category } }
-    if (params.searchTerms !== undefined) {
+    if (params.searchTerms) {
         const qRegex = new RegExp(params.searchTerms, 'i');
         query = { ...query, name: qRegex }
         query.$or = [
