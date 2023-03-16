@@ -8,30 +8,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import express from "express";
-import Item from "../models/items.js";
-import itemControl from "../controllers/item.control.js";
+import User from "../models/User.js";
+import jwt from 'jsonwebtoken';
 const routes = express.Router();
 routes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const items = yield itemControl.getItems(req.query);
-    res.status(200).send(items);
+    const user = yield User.find();
+    res.status(200).send(user);
 }));
 routes.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
-    if (!body.name || !body.category)
-        return res.status(400).send("Name or Category not found and there are required");
-    if (body.price && typeof body.price !== "number")
-        return res.status(400).send("Price must be a number");
-    const NewItem = new Item({
-        name: req.body.name,
-        category: req.body.category || "",
-        ingredients: body.ingredients,
-        description: body.description,
-        price: body.price || 0
+    const token = jwt.sign(body, body.password);
+    body.authToken = token.toString();
+    console.log(body.authToken);
+    const NewUser = new User({
+        password: body.password,
+        email: body.email,
+        fullName: body.fullName,
+        role: body.role,
+        imageUrl: body.imageUrl || "image not add yet",
+        USERtoken: body.authToken || "no token"
     }).save()
         .then(() => {
-        res.status(201).send("Item created successful");
+        res.status(201).send("new User created successful");
     }).catch(() => {
-        res.status(400).send("Failed to create Item");
+        res.status(400).send("Failed to create User");
     });
 }));
 export default routes;

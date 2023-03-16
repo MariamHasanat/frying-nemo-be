@@ -18,6 +18,6 @@ const ItemsSchema = new mongoose.Schema({
 
 })
 
-const Item=mongoose.model('ItemsSchema',ItemsSchema)
+const Item=mongoose.model('ItemsSchemas',ItemsSchema)
 
 export default Item;

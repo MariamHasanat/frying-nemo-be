@@ -3,14 +3,15 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import {Item} from "./models/index.js"
 import  ItemsRouter  from './routes/Item.js';
+import UsersRouter from './routes/user.js'
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
 
 app.use(express.json())
+app.use("/user",UsersRouter)
 app.use("/items",ItemsRouter)
-
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
   dbConnection()

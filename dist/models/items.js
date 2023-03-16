@@ -15,5 +15,5 @@ const ItemsSchema = new mongoose.Schema({
     ingredients: [String],
     addedBy: Schema.Types.ObjectId
 });
-const Item = mongoose.model('ItemsSchema', ItemsSchema);
+const Item = mongoose.model('ItemsSchemas', ItemsSchema);
 export default Item;
