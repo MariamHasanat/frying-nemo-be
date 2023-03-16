@@ -23,5 +23,10 @@ const ItemSchema = new mongoose.Schema(
     },
     // addedBy : Schema.Types.ObjectId
 });
+
+// create the model using this schema
 const Item = mongoose.model("Item", ItemSchema);
+//will create the table in db ,  and return some functions to deal with table 
+
+
 export default Item;

@@ -1,3 +1,5 @@
+import express from "express";
+
 export interface IItem {
     name : string ;
     price : number;
@@ -8,6 +10,6 @@ export interface IItem {
 
 }
 
-export interface IItemRequest extends Express.Request {
+export interface IItemRequest extends express.Request {
     body : IItem 
 }
