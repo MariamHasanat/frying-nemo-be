@@ -29,7 +29,7 @@ router.post('/', async (req: IItemRequest, res) => {
   newItem.price = req.body.price || 10;
   newItem.save()
     .then(() => {
-      res.status(201).send();
+      res.status(201).send("created");
     })
     .catch((err: mongoose.Error) => {
       console.error(err.message);

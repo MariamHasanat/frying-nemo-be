@@ -11,7 +11,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("../models/index");
 const getItems = (params) => __awaiter(void 0, void 0, void 0, function* () {
-    const items = yield index_1.Item.find();
+    const query = {};
+    if (params.maxPrice !== undefined) {
+        query.price = { $lte: params.maxPrice };
+    }
+    if (params.category) {
+        query.category = { $eq: params.category };
+    }
+    if (params.searchTerms) {
+        const qReg = new RegExp(params.searchTerms, 'i');
+        query.$or = [
+            { name: qReg },
+            { description: qReg },
+            { category: qReg },
+            // {
+            //   price: {
+            //     $eq: 15
+            //   }
+            // }
+        ];
+    }
+    const items = yield index_1.Item.find(query);
     return items;
 });
 const creatItem = (data) => {

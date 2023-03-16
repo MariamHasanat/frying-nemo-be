@@ -36,7 +36,7 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     newItem.price = req.body.price || 10;
     newItem.save()
         .then(() => {
-        res.status(201).send();
+        res.status(201).send("created");
     })
         .catch((err) => {
         console.error(err.message);
