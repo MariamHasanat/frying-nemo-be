@@ -27,6 +27,6 @@ const ItemSchema = new mongoose.Schema({
     // addedBy: Schema.Types.ObjectId
 });
 
-const item = mongoose.model('item', ItemSchema);
+const Item = mongoose.model('item', ItemSchema);
 
-export default item;
+export default Item;

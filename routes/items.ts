@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import Item from '../models/item';
 import { IItemRequest } from '../types/index';
+import { itemController } from '../controllers/index'
 
 const router = Router();
 
@@ -8,7 +9,7 @@ const router = Router();
  * returns a list of items
  */
 router.get('/', async (req, res) => {
-    const items = await Item.find();
+    const items = await itemController.getItems();
     res.send(items);
 });
 
