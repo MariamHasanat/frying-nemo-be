@@ -1,9 +1,10 @@
+import mongoose from "mongoose";
 import { Item } from "../models/index";
-import { IItemQuery } from "../types/index"
+import { IItemQuery, IItem } from "../types/index"
 
 const getItems = async (params: IItemQuery) => {
 
-    const query: any = {};
+    const query: mongoose.FilterQuery<IItem> = {};
 
     if (params.maxPrice !== undefined) {
         query.price = { $lte: params.maxPrice };
@@ -14,11 +15,22 @@ const getItems = async (params: IItemQuery) => {
     }
 
     if (params.searchTerms) {
-        query.name = new RegExp(params.searchTerms, 'i');
+        const qReq = new RegExp(params.searchTerms, 'i');
+
+        query.$or = [
+            { name: qReq },
+            { description: qReq },
+            { category: qReq },
+            // {
+            //     price: {
+            //         $eq: 15
+            //     }
+            // }
+        ];
     }
 
     console.log(query);
-    
+
     const items = await Item.find(query);
 
     return items;
