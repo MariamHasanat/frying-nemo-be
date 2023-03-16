@@ -1,11 +1,12 @@
 import { Router, Request, Response } from "express";
 import Item from "../models/item.js";
 import { IItem } from "../types/item.js";
+import itemController from '../controllers/item';
 
 const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
-    const result: IItem[] = await Item.find();
+    const result = await itemController.getItems();
     res.send(result);
 });
 

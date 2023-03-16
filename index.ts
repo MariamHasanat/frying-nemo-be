@@ -14,7 +14,7 @@ mongoose.connect(dbLink, {});
 const database = mongoose.connection;
 
 database.once('connected', () => {
-  console.log(`⚡️[server]: connected successfully`);
+  console.log(`⚡️[server]: database connected successfully`);
 })
 
 database.on('error', (err) => console.error(err));
