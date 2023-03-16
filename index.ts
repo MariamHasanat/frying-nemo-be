@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import itemRouter from './routes/items';
+import itemRouter from './routes/items.router';
 
 dotenv.config();
 
@@ -9,8 +9,8 @@ const app: Express = express();
 const port = process.env.PORT || 3001;
 app.use(express.json());
 
-
 app.use('/items',itemRouter );
+
 app.get('/', (req: Request, res: Response) => {
   res.send('Your Server is Working Fine 🤩');
 });
