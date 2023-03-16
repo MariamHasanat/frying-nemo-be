@@ -11,7 +11,22 @@ const getItems = async (params: IMenuItem.IItemQuery) => {
         query.category  =   { $eq: params.category }
     }
     if (params.searchTerms) {
-        query.name  = new RegExp (params.searchTerms , 'i') ;
+        const condition  = new RegExp (params.searchTerms , 'i') ;
+        // will receive an array
+        query.$or = [
+            {
+                name : condition
+            },
+            {
+                description : condition
+            },
+            {
+                category : condition
+            },
+            {
+                ingredients : condition
+            }
+        ]
     }
 
    
