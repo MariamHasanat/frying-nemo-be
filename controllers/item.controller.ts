@@ -3,7 +3,6 @@ import { IItemQuery } from "../types/index";
 const getItems = async (qs: IItemQuery) =>{
     const items = await Item.find();
     
-    
     return items;
 };
 

@@ -1,7 +1,7 @@
 import { Response, Request, Router } from "express";
 import { Item } from "../../models/index";
 import { IItemRequest } from "../../types/index";
-import itemController from "../../controllers/item";
+import itemController from "../../controllers/item.controller";
 const router = Router();
 router.put("/:id", (req: Request, res: Response) => {});
 
