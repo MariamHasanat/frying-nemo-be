@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { IItem, IItemRequest } from "../types/item";
+import { MenuItem } from "../types/item";
 
-const itemSchema = new mongoose.Schema<IItem>({
+const itemSchema = new mongoose.Schema<MenuItem.IItem>({
     id: Number,
     name: {
         type: String,
