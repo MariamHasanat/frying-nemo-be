@@ -9,9 +9,7 @@ const port = process.env.PORT || 3001;
 
 app.use('/items',item);
 app.use(express.json());
-// export interface IItemRequest extends Express.Request {
-//   body : IItem 
-// }
+
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
