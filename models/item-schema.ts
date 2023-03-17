@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-// const {Schema} from mongoose;
 const ItemSchema = new mongoose.Schema(
+    
 // it will describe the types of fields 
 {
     name: {

@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import Item from '../models/item';
-import { IMenuItem } from './../interfaces/item';
-import itemController from './../controllers/get-items'
+import Item from '../models/item-schema';
+import { IMenuItem } from '../interfaces/menuItems-interface';
+import itemController from '../controllers/items-controller'
 
 const router = express.Router();
 router.use(express.json());
@@ -16,31 +16,26 @@ router.get('/', async (req, res) => {
 
 
 router.post('/', (req: IMenuItem.IItemRequest, res) => {
+
   if (!req.body.name || !req.body.category) {
     return res.status(401).send("name and category are required !").end();
   }
+  
   if (req.body.price && typeof req.body.price !== 'number') {
     return res.status(401).send("price should be number !").end();
   }
 
 
-  const createNewItem = new Item({
-    name: req.body.name,
-    price: req.body.price,
-    description: req.body.description,
-    category: req.body.category,
-    ingredients: req.body.ingredients,
-    imageUrl: req.body.imageUrl
-  })
+  const createNewItem = itemController.createItems(req.body);
   // will save the item in db  
-  createNewItem.save() 
+  createNewItem.save()
     .then(
       () => {
         res.status(201).send("item added successfully").end();
       }
     )
     .catch((err: mongoose.Error) => {
-      console.log(req.body);
+      console.log(err);
 
       res.status(500).send("failed").end();
     })
