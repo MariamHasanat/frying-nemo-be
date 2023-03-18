@@ -25,7 +25,19 @@ const getItems = (param) => __awaiter(void 0, void 0, void 0, function* () {
     const Items = yield Item.find(query);
     return Items;
 });
-const createItem = (data) => __awaiter(void 0, void 0, void 0, function* () {
+const createItem = (data, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!data.name || !data.category)
+        return res.status(400).send("Name or Category not found and there are required");
+    if (data.price && typeof data.price !== "number")
+        return res.status(400).send("Price must be a number");
+    const NewItem = {
+        name: data.name,
+        category: data.category || "",
+        ingredients: data.ingredients,
+        description: data.description,
+        price: data.price || 0
+    };
+    return NewItem;
 });
 export default {
     getItems,
