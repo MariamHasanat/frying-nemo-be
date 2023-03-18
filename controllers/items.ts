@@ -3,14 +3,13 @@ import Item from "../models/items";
 import { MenuItem } from "../types/index";
 
 const getItems = async (params: MenuItem.IQuery) => {
-    let query: mongoose.FilterQuery<typeof Item> = {}
+    const query: mongoose.FilterQuery<typeof Item> = {}
     if (params.maxPrice !== undefined)
-        query = { ...query, price: { $lte: params.maxPrice } }
+        query.price = {$lte: params.maxPrice};
     if (params.category !== undefined)
-        query = { ...query, category: { $eq: params.category } }
+        query.category = {$eq:params.category}
     if (params.searchTerms) {
         const qRegex = new RegExp(params.searchTerms, 'i');
-        query = { ...query, name: qRegex }
         query.$or = [
             { name: qRegex },
             { category: qRegex },
