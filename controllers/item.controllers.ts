@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import Item from "../models/item.model"
-import { IItemQuery } from "../types/index";
+import { IItemQuery, IItemRequest } from "../types/index";
 
 const getItems = async (qs: IItemQuery) => {
-    const query: mongoose.FilterQuery<typeof Item > ={}; 
+    const query: mongoose.FilterQuery<typeof Item> = {};
     if (qs.maxPrice !== undefined) {
         query.price = { $lte: qs.maxPrice }
     }
@@ -16,23 +16,33 @@ const getItems = async (qs: IItemQuery) => {
     if (qs.searchTerms) {
         query.$or = [
             {
-                name : new RegExp (qs.searchTerms,'i') 
+                name: new RegExp(qs.searchTerms, 'i')
             },
             {
-                description : new RegExp (qs.searchTerms,'i')
-            },{
-                category: new RegExp (qs.searchTerms,'i')
+                description: new RegExp(qs.searchTerms, 'i')
+            },
+            {
+                category: new RegExp(qs.searchTerms, 'i')
             },
 
         ]
     }
     console.log(query);
-    
+
     const items = await Item.find(query);
     return items;
 }
-const createItem = (data: any) => {
+const createItem = (req: IItemRequest) => {
 
+    const newItem = new Item({
+        name: req.body.name,
+        price: req.body.price,
+        ingredients: req.body.ingredients,
+        description: req.body.description,
+        category: req.body.category
+    });
+    newItem.save()
+        .then(() => { return true });
 }
 export default {
     getItems,
