@@ -22,18 +22,25 @@ const getItems = (params) => __awaiter(void 0, void 0, void 0, function* () {
             { name: qReg },
             { description: qReg },
             { category: qReg },
-            // {
-            //   price: {
-            //     $eq: 15
-            //   }
-            // }
+            { ingredients: qReg },
         ];
     }
     console.log(query);
     const items = yield Item.find(query);
     return items;
 });
-const createItem = (data) => {
+const createItem = (req) => {
+    const newItem = new Item({
+        name: req.body.name,
+        category: req.body.category,
+        ingrediants: req.body.ingredients,
+        description: req.body.description,
+    });
+    newItem.price = req.body.price || 10;
+    return newItem.save()
+        .then(() => {
+        return true;
+    });
 };
 export default {
     getItems,

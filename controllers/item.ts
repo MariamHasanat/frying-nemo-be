@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Item } from "../models/index.js";
-import { IItem, IItemQuery } from '../type/index.js';
+import { IItem, IItemQuery, IItemRequest } from '../type/index.js';
 
 
 const getItems = async (params: IItemQuery) => {
@@ -21,11 +21,8 @@ const getItems = async (params: IItemQuery) => {
       { name: qReg },
       { description: qReg },
       { category: qReg },
-      // {
-      //   price: {
-      //     $eq: 15
-      //   }
-      // }
+      { ingredients: qReg },
+
     ]
   }
 
@@ -36,8 +33,19 @@ const getItems = async (params: IItemQuery) => {
   return items;
 }
 
-const createItem = (data: any) => {
+const createItem = (req: IItemRequest) => {
+  const newItem = new Item({
+    name: req.body.name,
+    category: req.body.category,
+    ingrediants: req.body.ingredients,
+    description: req.body.description,
+  });
 
+  newItem.price = req.body.price || 10;
+  return newItem.save()
+    .then(()=>{
+      return true;
+    })
 }
 
 export default {

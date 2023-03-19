@@ -8,34 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import express from "express";
-import Item from "../models/item.js";
+import { validateItem } from "../middlewars/item-validation.js";
 import itemController from '../controllers/item.js';
 const router = express.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const items = yield itemController.getItems(req.query);
-    res.send(items);
+    try {
+        const items = yield itemController.getItems(req.query);
+        res.status(200).send(items);
+    }
+    catch (error) {
+        res.status(500).send('failed to find items!');
+    }
 }));
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.body.name || !req.body.category) {
-        return res.status(400).send("name and category are required!");
-    }
-    if (!req.body.price && typeof req.body) {
-        return res.status(400).send("name and category are required!");
-    }
-    const newItem = new Item({
-        name: req.body.name,
-        category: req.body.category,
-        ingredients: req.body.ingredients,
-        description: req.body.description,
-    });
-    newItem.price = req.body.price || 10;
-    newItem.save()
-        .then(() => {
+router.post('/', validateItem, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield itemController.createItem(req);
         res.status(201).send();
-    })
-        .catch((err) => {
-        console.error(err.message);
-        res.status(500);
-    });
+    }
+    catch (error) {
+        res.status(500).send('failed to add items!');
+    }
 }));
 export default router;
