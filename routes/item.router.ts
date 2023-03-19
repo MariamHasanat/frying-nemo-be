@@ -2,6 +2,7 @@ import { Router } from 'express'
 import Item from '../models/item.model';
 import { IItemRequest } from '../types/index';
 import { itemController } from '../controllers/index'
+import itemValidation from '../middleware/item-validation';
 
 const router = Router();
 
@@ -16,17 +17,8 @@ router.get('/', async (req: IItemRequest, res) => {
 /**
  * create an item
  */
-router.post('/', (req: IItemRequest, res) => {
-    if (req.headers['content-type'] !== 'application/json') {
-        res.status(400).send('Expecting JSON data');
-        return;
-    }
-
+router.post('/', itemValidation.validateItem, (req: IItemRequest, res) => {
     const body = req.body;
-    if (!body.name || !body.price || !body.category) {
-        res.status(400).send('name, price and category are required!');
-        return;
-    }
 
     itemController.createItem(body)
         .then(() => {
