@@ -14,7 +14,7 @@ router.get('/', async (req: MenuItem.IItemRequest, res) => {
   }
 });
 
-router.post('/', validateItem, async (req: MenuItem.IItemRequest, res) => {
+router.post('/', validateItem, async (req: MenuItem.IItemRequest, res: express.Response) => {
   try {
     await itemController.createItem(req);
     res.status(201).send();
