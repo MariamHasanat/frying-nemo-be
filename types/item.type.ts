@@ -18,7 +18,17 @@ export namespace MenuItems {
         searchTerms?: string;
     }
 
-    export interface IRequest extends express.Request {
-        body: IItem;
+    export interface IRequest extends express.Request<{}, {}, IItem, {}> {
+    }
+}
+
+export namespace Users {
+    export interface User {
+        email: string;
+        password: string;
+        role: string;
+        fullName: string;
+        imageUrl: string;
+        authToken: string;
     }
 }
