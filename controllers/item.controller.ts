@@ -3,7 +3,7 @@ import { Item } from "../models/index";
 import { MenuItem } from "../types/index";
 
 const getItems = async (query: MenuItem.IItemQuery) => {
-    const q: mongoose.FilterQuery<MenuItem.IItem> = {} // next session: generic types of typescript
+    const q: mongoose.FilterQuery<MenuItem.IItem> = {} 
 
     if (query.maxPrice !== undefined) {
         q.price = { $lte: query.maxPrice }
