@@ -24,5 +24,16 @@ export namespace MenuItem {// متل خزانة اواعي فيو اكتر من 
 }
 
 
+  //for geniric type for js 
+   interface IObj<T>{
+   vlaue :T ,
+   history:T[]
+   }
+ const x :  IObj<number>={
+    vlaue :10,
+    history:[13,20,30]
+    }
+   //i can send any tyoe i need 
+
 
 
