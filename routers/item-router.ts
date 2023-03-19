@@ -5,7 +5,7 @@ import validateItem from '../middlewares/logging/validate-item';
 const router = express.Router();
 router.use(express.json());
 
-router.get('/', async (req, res) => {
+router.get('/', async (req : IMenuItem.IItemRequest, res) => {
   try {
     // it is like select all documents and return it filtered by query 
     const items = await itemController.getItems(req.query);

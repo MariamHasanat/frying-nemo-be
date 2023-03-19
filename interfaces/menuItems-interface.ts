@@ -22,7 +22,7 @@ export namespace IMenuItem
         maxPrice?: number;
       }
 
-    export interface IItemRequest extends express.Request {
-        body : IItem 
+    export interface IItemRequest extends express.Request<{},{},IItem,IItemQuery,{}> {
+     
     }
 }
