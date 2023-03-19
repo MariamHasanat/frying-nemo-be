@@ -46,7 +46,13 @@ const createItems = (item: IMenuItem.IItem) => {
         ingredients: item.ingredients,
         imageUrl: item.imageUrl
     })
-    return newItem;
+    return newItem.save()
+    .then(
+      () => {
+      return true
+      }
+    )
+  
 }
 
 export default { getItems, createItems };
