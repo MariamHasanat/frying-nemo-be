@@ -19,6 +19,7 @@ const getItems = async (query: IItemQuery) => {
             { name: RegEx },
             { description: RegEx },
             { category: RegEx },
+            { ingredients : RegEx}
         ]
 
     }
