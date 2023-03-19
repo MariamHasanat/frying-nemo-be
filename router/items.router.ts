@@ -2,7 +2,7 @@ import express from 'express'
 import Item from '../models/item.models.js'
 import itemsController from '../controller/items.controller.js';
 import validate from '../middleWare/items-validate.js';
-import { IItemRequest } from '../Type/index.js';
+import { MenuItem } from '../Type/index.js';
 
 
 const router = express.Router();
@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
   res.status(200).send(items);
 })
 
-router.post('/' ,validate, async (req : IItemRequest , res ) => {
+router.post('/' ,validate, async (req : MenuItem.ItemRequest , res ) => {
 
  try{
   await itemsController.creatItems(req);

@@ -1,7 +1,7 @@
-import { IItemRequest } from "../Type/index";
+import { MenuItem } from "../Type/index";
 import express from 'express';
 
-const validate = (req : IItemRequest, res : express.Response, next : express.NextFunction) => {
+const validate = (req : MenuItem.ItemRequest, res : express.Response, next : express.NextFunction) => {
     if (!req.body.name || !req.body.category) {
         return res.status(400).send("Name and category are required!");
       }
