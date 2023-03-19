@@ -34,6 +34,34 @@ export namespace User {
     authToken: string;
   }
 }
+//generic type in JS
+interface IObj<T> {
+  value: T;
+  history: T[]
 
+}
 
+const marks: IObj<number> ={
+  value:10,
+  history: [10,20,30]
+};
+
+const names: IObj<string> ={
+  value:"Ruba",
+  history: ["a","b","c"]
+};
+
+const items: IObj<MenuItem.Item> ={
+  value: {
+    category: 'cat',
+    description: 'desc',
+    imageUrl: '',
+    ingredients: [],
+    name: 'name',
+    price: 0
+  },
+
+  history: []
+
+  }
 
