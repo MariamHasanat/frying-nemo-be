@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import Item from "../models/item.moudel";
-import { IItemRequest } from "../types/index";
+import { MenuItems } from "../types/index";
 import itemController from "../controllers/items.controllers.js"
 import validItem from "../middleware/item-validation";
 const router = express.Router();
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.post('/', validItem, async (req: IItemRequest, res) => {
+router.post('/', validItem, async (req: MenuItems.ItemRequest, res) => {
     try {
         await itemController.createItems(req);
         res.status(201).send();
