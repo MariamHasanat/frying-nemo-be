@@ -18,9 +18,7 @@ export namespace MenuItem {
     page?: number;
     maxPrice?: number;
   }
-  export interface ItemRequest extends express.Request {
-    body: Item
-  }
+  export interface ItemRequest extends express.Request<{}, {}, MenuItem.Item, ItemQuery>{}
 }
 
 

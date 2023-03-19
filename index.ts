@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import itemsRouter from './routes/item.js'
+import cors from 'cors'
 
 
 dotenv.config();
