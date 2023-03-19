@@ -13,7 +13,8 @@ const getItems = async (params: MenuItem.IQuery) => {
         query.$or = [
             { name: qRegex },
             { category: qRegex },
-            { description: qRegex }
+            { description: qRegex } ,
+            { ingredients: qRegex } 
         ]
     }
     return await Item.find(query); //it returns the items as array of js objects
