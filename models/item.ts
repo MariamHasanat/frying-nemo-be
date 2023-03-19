@@ -5,6 +5,7 @@ const itemSchema = new mongoose.Schema<MenuItem.IItem>({
     id: Number,
     name: {
         type: String,
+        required: true
     },
     imageUrl: {
         type: String

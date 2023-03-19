@@ -1,3 +1,4 @@
+import { Response } from "express";
 import { FilterQuery } from "mongoose";
 import Item from "../models/item";
 import { MenuItem } from "../types/item";
@@ -12,7 +13,6 @@ const getItems = async (query: MenuItem.IQuery) => {
     if (maxPrice !== undefined) {
         filteredQuery.price = { $lte: maxPrice }
     }
-    
     if (category) {
         filteredQuery.category = { $eq: category }
     }
@@ -24,6 +24,7 @@ const getItems = async (query: MenuItem.IQuery) => {
             { name: qReg },
             { category: qReg },
             { description: qReg },
+            { ingredients: qReg }
         ];
 
     }
@@ -34,6 +35,33 @@ const getItems = async (query: MenuItem.IQuery) => {
     return result;
 }
 
+const createItem = (req: MenuItem.IItemRequest, res: Response) => {
+
+    const item = new Item({
+        name: req.body.name,
+        description: req.body.description,
+        category: req.body.category,
+        price: req.body.price,
+        imageUrl: req.body.imageUrl,
+        ingredients: req.body.ingredients,
+    });
+
+    item.validate()
+        .then(() => {
+            item.save();
+            res.status(200).send('Item added successfully');
+        })
+        .catch((err) => {
+            res.status(500).send(err.message);
+            console.log(err.message);
+        });
+}
+
+const updateItem = () => {
+
+}
+
 export default {
-    getItems
+    getItems,
+    createItem
 }

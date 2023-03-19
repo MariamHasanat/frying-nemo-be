@@ -8,9 +8,9 @@ const port = 3006;
 app.use(json());
 dotenv.config()
 
-const dbLink: string = process.env.DB_LINK || 'none';
+const databaseLink: string = process.env.DB_LINK || 'none';
 
-mongoose.connect(dbLink, {});
+mongoose.connect(databaseLink, {});
 const database = mongoose.connection;
 
 database.once('connected', () => {

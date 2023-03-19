@@ -8,6 +8,7 @@ const router = Router();
 router.get('/', async (req: MenuItem.IItemRequest, res: Response) => {
     const query = req.query;
     const result = await itemController.getItems(query);
+    console.group('group 1')
     res.send(result);
 });
 
@@ -21,27 +22,12 @@ router.delete('/:id', async (req, res) => {
     const result = await Item.deleteOne({ name: itemId });
     res.status(200).send('deleted successfully');
 })
-router.post('/', async (req: Request<{}, {}, MenuItem.IItem>, res) => {
 
-    const item = new Item({
-        name: req.body.name,
-        description: req.body.description,
-        category: req.body.category
-    });
-
-    try {
-        item.validate()
-            .then(() => {
-                item.save();
-                res.status(200).send('Item added successfully');
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
-    } catch (error: any) {
-        res.status(500).send(error.message).end()
-        console.error(error.message);
-    }
+router.post('/', async (req: MenuItem.IItemRequest, res) => {
+    itemController.createItem(req, res);
 });
 
+router.put('/', (req, res) => {
+
+});
 export default router;
