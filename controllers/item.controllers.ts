@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import Item from "../models/item.model"
-import { IItemQuery, IItemRequest } from "../types/index";
+import { MenuItem } from "../types/index";
 
-const getItems = async (qs: IItemQuery) => {
+const getItems = async (qs: MenuItem.IItemQuery) => {
     const query: mongoose.FilterQuery<typeof Item> = {};
     if (qs.maxPrice !== undefined) {
         query.price = { $lte: qs.maxPrice }
@@ -32,7 +32,7 @@ const getItems = async (qs: IItemQuery) => {
     const items = await Item.find(query);
     return items;
 }
-const createItem = (req: IItemRequest) => {
+const createItem = (req: MenuItem.IItemRequest) => {
 
     const newItem = new Item({
         name: req.body.name,

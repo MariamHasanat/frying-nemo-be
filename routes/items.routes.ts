@@ -1,9 +1,7 @@
 import express from "express";
-import mongoose from "mongoose";
 import itemController from "../controllers/item.controllers";
 import validateItem from "../middlewares/item-validation";
-import Item from "../models/item.model";
-import { IItemRequest } from "../types/index";
+import { MenuItem } from "../types/index";
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -15,7 +13,7 @@ router.get('/', async (req, res) => {
     }
 
 });
-router.post('/', validateItem, async (req: IItemRequest, res) => {
+router.post('/', validateItem, async (req: MenuItem.IItemRequest, res:express.Response) => {
     try {
         await itemController.createItem(req);
         res.status(201).send("Item is added 🔥 ");
