@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Item from "../models/item.moudel";
+import Item from "../models/model";
 import {  MenuItems } from "../types/index";
 
 const getItems = async (params: MenuItems.IQuery) => {

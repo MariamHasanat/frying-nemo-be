@@ -1,6 +1,4 @@
 import express from "express";
-import mongoose from "mongoose";
-import Item from "../models/item.moudel";
 import { MenuItems } from "../types/index";
 import itemController from "../controllers/items.controllers.js"
 import validItem from "../middleware/item-validation";
@@ -17,13 +15,15 @@ router.get('/', async (req, res) => {
     }
 })
 
+
+
 router.post('/', validItem, async (req: MenuItems.ItemRequest, res) => {
     try {
         await itemController.createItems(req);
         res.status(201).send();
 
     } catch (error) {
-        res.status(500).send("faild to add item")
+        res.status(500).send("failed to add item")
     }
 
 })
