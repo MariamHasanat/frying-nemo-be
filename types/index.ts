@@ -11,18 +11,32 @@ export namespace MenuItem {// متل خزانة اواعي فيو اكتر من 
         ingredient: string[]
     }
     export interface ItemQuery {
-        category?: string;
+        categories?: string[];
         searchTerms?: string;
         page?: number,
         maxPrice?: number
 
     }
+    //with geniric type 
+    export interface IItemRequest extends express.Request<{},{},MenuItem.Item,ItemQuery>{}
 
-    export interface IItemRequest extends express.Request {//بياخد الوراثة  ناعت الreq  وبعدل وبضيف على الاب وبورثو 
-        body: Item
-    }
+
+     //without geniric type
+    // export interface IItemRequest extends express.Request {//بياخد الوراثة  ناعت الreq  وبعدل وبضيف على الاب وبورثو 
+    //     body: Item
+    // }
 }
 
+export namespace User {
+  export interface IUser {
+    email: string;
+    password: string;
+    role: string;
+    fullName: string;
+    imageUrl: string;
+    authToken: string;
+  }
+}
 
   //for geniric type for js 
    interface IObj<T>{
@@ -34,6 +48,4 @@ export namespace MenuItem {// متل خزانة اواعي فيو اكتر من 
     history:[13,20,30]
     }
    //i can send any tyoe i need 
-
-
 

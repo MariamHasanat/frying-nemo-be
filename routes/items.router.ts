@@ -21,7 +21,7 @@ itemsRouter.get('/', async (req: MenuItem.IItemRequest, res) => {
 })
 
 //to add item into the data base 
-itemsRouter.post('/',validItem, async(req: MenuItem.IItemRequest, res) => {//give type  to give auto complete 
+itemsRouter.post('/',validItem, async(req: MenuItem.IItemRequest, res : express.Response) => {//give type  to give auto complete 
     try {
         await itemController.creatItem(req);
         res.status(201).send();

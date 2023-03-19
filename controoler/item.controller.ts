@@ -3,7 +3,7 @@ import Item from "../models/items.moddel.js";
 import { MenuItem } from "../types/index.js";
 
 const getItem = async (params: MenuItem.ItemQuery) => {
-    const query: mongoose.FilterQuery<typeof Item> = {};
+    const query: mongoose.FilterQuery<MenuItem.Item> = {};
      
     if (params.maxPrice !== undefined) {
         query.price = { $lte: params.maxPrice }  //params.maxPrice less than  or equal 
@@ -20,8 +20,8 @@ const getItem = async (params: MenuItem.ItemQuery) => {
             { ingredient: qReg }
         ]
     }
-    if (params.category) {
-        query.category = { $eq: params.category }
+    if (params.categories) {
+        query.category = { $in: params.categories }
     }
     console.log(JSON.stringify(query));
 
