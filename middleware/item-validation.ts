@@ -9,6 +9,11 @@ const validateItem = (req: express.Request, res: express.Response, next: express
         res.status(400).send('name, price and category are required!');
         return;
     }
+    // TODO: manually check the rest of the types of body values (typeof ...)
+    if (typeof body.price !== 'number') {
+        res.status(400).send('price must be of type Number');
+        return;
+    }
     next();
 }
 
