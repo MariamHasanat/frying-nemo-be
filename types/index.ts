@@ -1,6 +1,6 @@
 import express from "express";
 
-interface IItem {
+export interface IItem {
     name: string;
     imageUrl: string;
     description: string;

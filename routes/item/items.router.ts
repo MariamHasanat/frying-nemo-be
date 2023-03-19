@@ -1,48 +1,27 @@
-import { Response, Request, Router } from "express";
-import { Item } from "../../models/index";
-import { IItemRequest } from "../../types/index";
-import itemController from "../../controllers/item.controller";
-const router = Router();
-router.put("/:id", (req: Request, res: Response) => {});
+import express from 'express';
+import { IItemRequest } from '../../types/index';
+import itemController from '../../controllers/item.controller';
+import { validateItem } from '../../middlewares/item-validation';
 
-router.get("/", async (req: Request, res: Response) => {
+const router = express.Router();
+
+router.get('/', async (req: IItemRequest, res) => {
   try {
     const items = await itemController.getItems(req.query);
     res.status(200).send(items);
   } catch (error) {
-    console.debug("from items: ", error);
-    res.status(400);
+    res.status(500).send("Failed to find items!");
   }
 });
 
-router.post("/", (req: IItemRequest, res: Response) => {
-  const tempItem = req.body;
-  if (!tempItem.name || !tempItem.category) {
-    res.status(400).send("name or category is missing");
-    return;
+router.post('/', validateItem, async (req: IItemRequest, res) => {
+  try {
+    await itemController.createItem(req);
+    res.status(201).send();
+  } catch (error) {
+    res.status(500).send("Failed to add item!");
   }
-  if (typeof tempItem.price !== "number") {
-    res.status(400).send("price should be a number");
-    return;
-  }
-  const newItem = new Item({
-    name: tempItem.name,
-    category: tempItem.category,
-    ingredients: tempItem.ingredients,
-    description: tempItem.description,
-    imageUrl: tempItem.imageUrl,
-    price: tempItem.price,
-  });
-  newItem
-    .save()
-    .then(() => {
-      res.status(200).send("item added succesfully");
-    })
-    .catch((err) => {
-      console.log(err);
 
-      res.status(400).send(`we couldn't add the item`);
-    });
 });
 
 export default router;
