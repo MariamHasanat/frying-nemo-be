@@ -1,6 +1,7 @@
 import express from 'express'
 import { createItem, getItems, getSingleItem } from '../controllers/items';
 import { MenuItem } from '../types/index';
+import { validateItem } from '../middleware/validation'
 
 const itemsRouter = express.Router();
 
@@ -11,7 +12,7 @@ itemsRouter.get('/', async (req, res) => {
 })
 
 itemsRouter.get('/:id', async (req, res) => {
-  const item = await getSingleItem(req.params.id) ;
+  const item = await getSingleItem(req.params.id);
   res.send(item)
 })
 
@@ -24,7 +25,7 @@ itemsRouter.put('/:id', async (req, res) => {
 })
 
 // to add new item into the data base
-itemsRouter.post('/', (req: MenuItem.IRequest, res) => {
+itemsRouter.post('/', validateItem, (req: MenuItem.IRequest, res) => {
   createItem(req.body)
     .then(() => {
       res.send("Item is added into the data base :)")
