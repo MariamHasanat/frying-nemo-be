@@ -7,23 +7,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import Item from "../models/item.js";
+import { Item } from "../models/index.js";
 const getItems = (params) => __awaiter(void 0, void 0, void 0, function* () {
     const query = {};
     if (params.maxPrice !== undefined) {
         query.price = { $lte: params.maxPrice };
     }
     if (params.category) {
-        query.category = { $lte: params.category };
+        query.category = { $eq: params.category };
     }
-    if (params.searchItem) {
-        const qReg = new RegExp(params.searchItem, 'i');
+    if (params.searchTerms) {
+        const qReg = new RegExp(params.searchTerms, 'i');
         query.$or = [
             { name: qReg },
             { description: qReg },
             { category: qReg },
+            // {
+            //   price: {
+            //     $eq: 15
+            //   }
+            // }
         ];
     }
+    console.log(query);
     const items = yield Item.find(query);
     return items;
 });

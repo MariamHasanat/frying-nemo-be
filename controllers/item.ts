@@ -1,35 +1,43 @@
-import Item from "../models/item.js";
-import { IItemQuery } from "../type/index.js";
+import mongoose from "mongoose";
+import { Item } from "../models/index.js";
+import { IItem, IItemQuery } from '../type/index.js';
 
 
 const getItems = async (params: IItemQuery) => {
-  const query: any = {};
+  const query: mongoose.FilterQuery<IItem> = {};
 
-  if (params.maxPrice !== undefined){
-    query.price = {$lte: params.maxPrice}
+  if (params.maxPrice !== undefined) {
+    query.price = { $lte: params.maxPrice }
   }
 
-  if (params.category){
-    query.category = {$lte: params.category}
+  if (params.category) {
+    query.category = { $eq: params.category }
   }
 
-  if (params.searchItem){
-   const qReg = new RegExp(params.searchItem, 'i');
+  if (params.searchTerms) {
+    const qReg = new RegExp(params.searchTerms, 'i');
 
-   query.$or = [
-    {name: qReg},
-    {description: qReg},
-    { category: qReg },
-   ]
+    query.$or = [
+      { name: qReg },
+      { description: qReg },
+      { category: qReg },
+      // {
+      //   price: {
+      //     $eq: 15
+      //   }
+      // }
+    ]
   }
 
-  const items = await Item.find(query)
+  console.log(query);
+
+  const items = await Item.find(query);
+
   return items;
 }
 
-
-
 const createItem = (data: any) => {
+
 }
 
 export default {

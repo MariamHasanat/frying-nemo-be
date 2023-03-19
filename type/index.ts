@@ -1,22 +1,28 @@
-import express from "express"
 
-export interface Item{
-    name: string,
-    imageUrl: string,
-    description: string ,
-    price: number,
-    category: string,
-    ingredients: string[],
+
+import express from "express";
+
+export interface IItem {
+  name: string;
+  imageUrl: string;
+  description: string;
+  price: number;
+  category: string;
+  ingredients: string[];
 }
+
 export interface IItemQuery {
-category?: string;
-searchItem?: string;
-page?: number;
-maxPrice?:number
+  category?: string;
+  searchTerms?: string;
+  page?: number;
+  maxPrice?: number;
 }
 
-export interface ItemRequest extends express.Request{
-    body: Item
+export interface IItemRequest extends express.Request {
+  body: IItem
 }
+
+// export interface IItemRequest extends express.Request<{}, {}, IItem, IItemQuery> {
+// }
 
 

@@ -1,21 +1,24 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 const ItemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
+        unique: true
     },
-    imageUrl: String,
+    imageUrl: 'String',
     description: String,
     price: {
-        type: 'Number',
+        type: 'Number'
     },
     category: {
         type: String,
-        required: true,
+        required: true
     },
-    ingredients: [String],
-    addedBy: Schema.Types.ObjectId
+    ingredients: {
+        type: [String],
+        default: []
+    },
+    // addedBy: Schema.Types.ObjectId
 });
-const Item = mongoose.model("items", ItemSchema);
+const Item = mongoose.model("Item", ItemSchema);
 export default Item;
