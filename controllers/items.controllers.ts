@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Item from "../models/item.moudel";
-import { IIQuery, IItem } from "../types/index";
+import { IIQuery, IItem, IItemRequest } from "../types/index";
 
 const getItems = async (params: IIQuery) => {
     const query: mongoose.FilterQuery<IItem> = {}
@@ -12,7 +12,6 @@ const getItems = async (params: IIQuery) => {
         query.category = { $eq: params.category }
     }
     if (params.searchTerms) {
-
         const qReg = new RegExp(params.searchTerms, 'i')
         query.$or = [
             {
@@ -22,6 +21,9 @@ const getItems = async (params: IIQuery) => {
             },
             {
                 category: qReg
+            },
+            {
+                ingredients: qReg
             }
         ]
 
@@ -33,9 +35,21 @@ const getItems = async (params: IIQuery) => {
     return items;
 }
 
-const createItems = (data: any) => {
+const createItems = (req: IItemRequest) => {
+    const newItem = new Item({
+        name: req.body.name,
+        category: req.body.category,
+        ingredients: req.body.ingredients,
+        description: req.body.description,
+        price: req.body.price
+    });
+    newItem.price = req.body.price || 10
+    return newItem.save()
+        .then(() => {
+            return true ///successfully created
+        }
 
-    return
+        )
 }
 
 export default {

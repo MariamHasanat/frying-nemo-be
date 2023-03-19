@@ -3,38 +3,28 @@ import mongoose from "mongoose";
 import Item from "../models/item.moudel";
 import { IItemRequest } from "../types/index";
 import itemController from "../controllers/items.controllers.js"
+import validItem from "../middleware/item-validation";
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    const items = await itemController.getItems(req.query);
-    //select all from table
-    res.status(200).send(items)
+    try {
+
+        const items = await itemController.getItems(req.query);
+        //select all from table
+        res.status(200).send(items)
+    } catch (error) {
+        res.status(500).send("failed to find this item !!")
+    }
 })
 
-router.post('/', async (req: IItemRequest, res) => {
-    if (!req.body.name || !req.body.category) {
-        return res.status(400).send("Name and Category are required ")
+router.post('/', validItem, async (req: IItemRequest, res) => {
+    try {
+        await itemController.createItems(req);
+        res.status(201).send();
+
+    } catch (error) {
+        res.status(500).send("faild to add item")
     }
-    if (!req.body.price && typeof req.body.price !== "number") {
-        return res.status(400).send("price must be a number")
-    }
-
-    const newItem = new Item({
-        name: req.body.name,
-        category: req.body.category,
-        ingredients: req.body.ingredients,
-        description: req.body.description,
-        price: req.body.price
-    });
-
-    newItem.save()
-        .then(() => {
-            res.send("Item is Added")
-        })
-        .catch((err: mongoose.Error) => {
-
-            res.status(500).send("Failed to add this item  :( " + err.message);
-        })
 
 })
 export default router;
