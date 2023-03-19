@@ -18,12 +18,20 @@ export namespace MenuItem {
         maxPrice?: number;
     }
 
-    export interface ItemRequest extends express.Request {
-        body: Item
-    }
+
+    //with generic types
+    export interface ItemRequest extends express.Request<{}, {}, MenuItem.Item, ItemQuery> { }
+
+
+    //without generic types
+    // export interface ItemRequest extends express.Request {
+    //     body: Item
+    // }
+
+
+    // export interface IItemRequest extends express.Request<{}, {}, IItem, IItemQuery> {
+    // }
 }
-// export interface IItemRequest extends express.Request<{}, {}, IItem, IItemQuery> {
-// }
 export namespace User {
     export interface IUser {
         email: string;
