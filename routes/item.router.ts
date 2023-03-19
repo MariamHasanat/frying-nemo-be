@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import Item from '../models/item.model';
-import { IItemRequest } from '../types/index';
+import { MenuItem } from '../types/index';
 import { itemController } from '../controllers/index'
 import itemValidation from '../middleware/item-validation';
 
@@ -9,7 +9,7 @@ const router = Router();
 /**
  * returns a list of items
  */
-router.get('/', async (req: IItemRequest, res) => {
+router.get('/', async (req: MenuItem.IItemRequest, res) => {
     const items = await itemController.getItems(req.query);
     res.send(items);
 });
@@ -17,7 +17,7 @@ router.get('/', async (req: IItemRequest, res) => {
 /**
  * create an item
  */
-router.post('/', itemValidation.validateItem, (req: IItemRequest, res) => {
+router.post('/', itemValidation.validateItem, (req: MenuItem.IItemRequest, res) => {
     const body = req.body;
 
     itemController.createItem(body)

@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import { Item } from "../models/index";
-import { IItem, IItemQuery } from "../types/index";
+import { MenuItem } from "../types/index";
 
-const getItems = async (query: IItemQuery) => {
-    const q: mongoose.FilterQuery<IItem> = {} // next session: generic types of typescript
+const getItems = async (query: MenuItem.IItemQuery) => {
+    const q: mongoose.FilterQuery<MenuItem.IItem> = {} // next session: generic types of typescript
     
     if (query.maxPrice !== undefined) {
         q.price = { $lte: query.maxPrice }
@@ -28,7 +28,7 @@ const getItems = async (query: IItemQuery) => {
     return items;
 }
 
-const createItem = (body: IItem) => {
+const createItem = (body: MenuItem.IItem) => {
     const newItem = new Item({
         name: body.name,
         category: body.category,

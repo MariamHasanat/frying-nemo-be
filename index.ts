@@ -1,7 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { item } from './models/index'
 import { itemsRouter } from './routes/index';
 
 dotenv.config();
