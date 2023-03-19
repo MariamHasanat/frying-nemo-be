@@ -18,7 +18,7 @@ export namespace MenuItems {
         searchTerms?: string;
     }
 
-    export interface IRequest extends express.Request<{}, {}, IItem, {}> {
+    export interface IRequest extends express.Request<{}, {}, IItem, IQuery> {
     }
 }
 

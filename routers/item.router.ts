@@ -6,7 +6,7 @@ import { Status } from '../classes/status';
 
 const router = Router();
 
-router.get('/', async (req: express.Request<{}, {}, {}, MenuItems.IQuery>, res: express.Response) => {
+router.get('/', async (req: MenuItems.IRequest, res: express.Response) => {
     try {
         const items = await itemController.getItems(req.query);
         res.send(new Status(200, '', { total: items.length, items }));
