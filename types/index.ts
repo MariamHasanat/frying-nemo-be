@@ -1,5 +1,6 @@
 import express from "express";
-export interface IItem {
+export namespace MenuItem{
+  export interface Item{
     name: string;
     imageUrl: string;
     description: string;
@@ -7,8 +8,7 @@ export interface IItem {
     category: string;
     ingredients: string[];
   }
-  
-  export interface IItemQuery{
+  export interface ItemQuery{
     
    
         category?:string;
@@ -17,7 +17,22 @@ export interface IItem {
         maxPrice?:number;
 
     }
-    export interface IItemRequest extends express.Request{
-       body : IItem 
-    }
+    export interface ItemRequest extends express.Request{
+      body : Item 
+}
+   
+export namespace User {
+  export interface IUser {
+    email: string;
+    password: string;
+    role: string;
+    fullName: string;
+    imageUrl: string;
+    authToken: string;
+  }
+}
+  
+  
+
+}
   

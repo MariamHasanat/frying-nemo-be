@@ -1,13 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import Item from '../models/item.models';
-import { IItemRequest } from '../types/index';
+import { MenuItem} from '../types/index';
 import itemController from "../controllers/item.controlles";
 import { validateItem } from '../middlewares/item-validation';
 const router = express.Router();
 
 
-router.get('/', async (req:IItemRequest, res) => {
+router.get('/', async (req:MenuItem.ItemRequest, res) => {
   try{
     const items = await itemController.getItems(req.query);
     res.status(200).send(items);}
@@ -17,7 +17,7 @@ router.get('/', async (req:IItemRequest, res) => {
  
 });
 
-router.post('/', async (req: IItemRequest, res) => {
+router.post('/', async (req:MenuItem.ItemRequest, res) => {
   try{
     await itemController.creatItem(req)
     res.status(201).send();
