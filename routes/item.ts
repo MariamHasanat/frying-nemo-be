@@ -1,6 +1,6 @@
 import express from "express";
 import {validateItem} from "../middlewars/item-validation.js"
-import { IItemRequest } from "../type/index.js";
+import { MenuItem } from "../type/index.js";
 import itemController from  '../controllers/item.js';
 
 const router = express.Router();
@@ -15,7 +15,7 @@ router.get('/', async(req, res) =>{
   }
 });
 
-router.post('/',validateItem, async(req: IItemRequest, res) =>{
+router.post('/',validateItem, async(req:MenuItem.ItemRequest, res) =>{
     try {
         await itemController.createItem(req);
         res.status(201).send();
