@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 import Item from "../models/items.moddel.js";
-import { ItemQuery } from "../types/index.js";
+import { MenuItem } from "../types/index.js";
 
-
-const getItem = async (params: ItemQuery) => {
+const getItem = async (params: MenuItem.ItemQuery) => {
     const query: mongoose.FilterQuery<typeof Item> = {};
-
+     
     if (params.maxPrice !== undefined) {
         query.price = { $lte: params.maxPrice }  //params.maxPrice less than  or equal 
     }
@@ -17,7 +16,8 @@ const getItem = async (params: ItemQuery) => {
         query.$or = [
             { name: qReg },
             { description: qReg },
-            { category: qReg }
+            { category: qReg },
+            { ingredient: qReg }
         ]
     }
     if (params.category) {
@@ -30,8 +30,20 @@ const getItem = async (params: ItemQuery) => {
     return (items);
 }
 
-const creatItem = (data: any) => {
+const creatItem = (req:MenuItem.IItemRequest) => {
+    const newItem  = new Item ({
+        name : req.body.name , 
+        price: req.body.price , 
+        category: req.body.category ,
+        ingredient: req.body.ingredient,
+        description : req.body.description ,
+        imageUrl : req.body.imageUrl
 
+    })
+    return  newItem.save()//strore in data base 
+    .then(()=>{
+        return true;//created  successfuly
+    })
 
 }
 export default {
