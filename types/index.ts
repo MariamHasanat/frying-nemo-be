@@ -11,7 +11,7 @@ export namespace MenuItem {
     }
 
     export interface IQuery {
-        category?: string;
+        categories?: string;
         searchTerms?: string;
         page?: number;
         maxPrice?: number;

@@ -6,8 +6,9 @@ const getItems = async (params: MenuItem.IQuery) => {
     const query: mongoose.FilterQuery<typeof Item> = {}
     if (params.maxPrice !== undefined)
         query.price = { $lte: params.maxPrice };
-    if (params.category !== undefined)
-        query.category = { $eq: params.category }
+    const categories : string[] = JSON.parse(params.categories || '[]') ;
+    if (categories?.length) 
+        query.category = { $in: categories }
     if (params.searchTerms) {
         const qRegex = new RegExp(params.searchTerms, 'i');
         query.$or = [
@@ -17,6 +18,8 @@ const getItems = async (params: MenuItem.IQuery) => {
             { ingredients: qRegex } 
         ]
     }
+    console.log(query);
+    
     return await Item.find(query); //it returns the items as array of js objects
 }
 
