@@ -9,8 +9,8 @@ const getItems = async (query: MenuItem.IItemQuery) => {
         q.price = { $lte: query.maxPrice }
     }
 
-    if (query.category) {
-        q.category = { $eq: query.category }
+    if (query.categories) {
+        q.category = { $eq: query.categories}
     }
 
     if (query.searchTerms) {
@@ -21,7 +21,6 @@ const getItems = async (query: MenuItem.IItemQuery) => {
             { category: RegEx },
             { ingredients: RegEx }
         ]
-
     }
 
     const items = await Item.find(q);

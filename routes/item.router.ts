@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import Item from '../models/item.model';
 import { MenuItem } from '../types/index';
 import { itemController } from '../controllers/index'
 import itemValidation from '../middleware/item-validation';
