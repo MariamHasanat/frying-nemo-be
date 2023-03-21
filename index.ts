@@ -10,7 +10,7 @@ const app: Express = express();
 const port = process.env.PORT || 3001;
 app.use(cors({ origin: 'http://localhost:3000' }))
 app.use(express.json());
-app.use('/meals',itemsRouter);
+app.use('/menu',itemsRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server + Hello World');
