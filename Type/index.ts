@@ -17,6 +17,6 @@ export interface ItemQuery {
   maxPrice?: number;
 }
 
-export interface ItemRequest extends express.Request {
+export interface ItemRequest extends express.Request<{}, {}, MenuItem.Item, ItemQuery>{
   body: Item
 }}
