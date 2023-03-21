@@ -7,8 +7,9 @@ const getItems = async (qs: MenuItem.IItemQuery) => {
     if (qs.maxPrice !== undefined) {
         query.price = { $lte: qs.maxPrice }
     }
-    if (qs.category) {
-        query.category = { $eq: qs.category }
+    const categories = JSON.parse(qs.categories || '[]');
+    if (categories.length) {
+        query.category = {$in: categories }
     }
     if (qs.page !== undefined) {
         query.page = { $eq: qs.page }

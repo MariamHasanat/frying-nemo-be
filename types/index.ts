@@ -12,7 +12,7 @@ export namespace MenuItem{
 
 
 export interface IItemQuery {
-  category?: string;
+  categories?: string;
   maxPrice?: number,
   searchTerms?: string,
   page?: number
