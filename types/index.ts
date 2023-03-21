@@ -12,7 +12,7 @@ export namespace MenuItem {
 
 
     export interface ItemQuery {
-        category?: string;
+        categories?: string[];
         searchTerms?: string;
         page?: number;
         maxPrice?: number;
