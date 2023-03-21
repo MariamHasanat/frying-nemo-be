@@ -9,9 +9,10 @@ const getItems = async (params: MenuItem.IItemQuery) => {
   if (params.maxPrice !== undefined) {
     query.price = { $lte: params.maxPrice }
   }
-
-  if (params.category) {
-    query.category = { $eq: params.category }
+  const categories = JSON.parse(params.categories || "[]");
+  console.debug(categories); 
+  if (categories.length) {
+    query.category = { $in: categories }
   }
 
   if (params.searchTerms) {
@@ -24,8 +25,6 @@ const getItems = async (params: MenuItem.IItemQuery) => {
       { ingredients: qReg }
     ]
   }
-
-  console.log(query);
 
   const items = await Item.find(query);
 
