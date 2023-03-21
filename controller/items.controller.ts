@@ -10,7 +10,7 @@ const getItems = async (params?: MenuItem.ItemQuery) => {
     }
 
     if(params?.category) {
-        query.category = {$eq : params.category};
+      query.category = { $in: params.category }
     }
 
     if(params?.searchTerms) {
@@ -19,6 +19,7 @@ const getItems = async (params?: MenuItem.ItemQuery) => {
         query.$or = [
             { name : qReg } ,
             { category : qReg } ,
+            { ingredients : qReg } ,
             { description : qReg}
         ]
     }
