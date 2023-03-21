@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { json } from "stream/consumers";
 import Item from "../models/items.moddel.js";
 import { MenuItem } from "../types/index.js";
 
@@ -20,8 +21,10 @@ const getItem = async (params: MenuItem.ItemQuery) => {
             { ingredient: qReg }
         ]
     }
-    if (params.categories) {
-        query.category = { $in: params.categories }
+
+    const categories = JSON.parse(params.categories ||'[]');
+    if (categories.length) {
+        query.category = { $in: categories }
     }
     console.log(JSON.stringify(query));
 

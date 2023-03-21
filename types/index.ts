@@ -11,7 +11,7 @@ export namespace MenuItem {// متل خزانة اواعي فيو اكتر من 
         ingredient: string[]
     }
     export interface ItemQuery {
-        categories?: string[];
+        categories?: string;
         searchTerms?: string;
         page?: number,
         maxPrice?: number
