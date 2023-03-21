@@ -2,11 +2,14 @@ import express, { Express, json } from 'express';
 import mongoose from 'mongoose';
 import { itemRouter } from './routes';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 const app: Express = express();
 const port = 3006;
+dotenv.config();
+
 app.use(json());
-dotenv.config()
+app.use(cors());
 
 const databaseLink: string = process.env.DB_LINK || 'none';
 

@@ -8,7 +8,6 @@ const router = Router();
 router.get('/', async (req: MenuItem.IItemRequest, res: Response) => {
     const query = req.query;
     const result = await itemController.getItems(query);
-    console.group('group 1')
     res.send(result);
 });
 

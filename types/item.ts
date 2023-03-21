@@ -7,7 +7,7 @@ export namespace MenuItem {
         imageUrl: string;
         description: string;
         price: number;
-        category: string;
+        category: string[];
         ingredients: String[];
     }
 
@@ -17,6 +17,6 @@ export namespace MenuItem {
         category: string,
         maxPrice: number,
         searchTerms: string,
-        page: number
+        page: number,
     }
 }

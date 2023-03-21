@@ -15,7 +15,7 @@ const itemSchema = new mongoose.Schema<MenuItem.IItem>({
     },
     price: Number,
     category: {
-        type: String,
+        type: [String],
     },
     ingredients: {
         type: [String]

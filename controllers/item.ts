@@ -29,7 +29,7 @@ const getItems = async (query: MenuItem.IQuery) => {
 
     }
 
-    console.log(filteredQuery);
+    console.log({ filteredQuery });
 
     const result: MenuItem.IItem[] = await Item.find(filteredQuery);
     return result;

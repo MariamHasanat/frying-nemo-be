@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/kldoon/frying-nemo-be#readme",
   "dependencies": {
+    "@types/cors": "^2.8.13",
     "@types/mongoose": "^5.11.97",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
