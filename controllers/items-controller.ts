@@ -9,10 +9,12 @@ const getItems = async (params: IMenuItem.IItemQuery) => {
     if (params.maxPrice !== undefined) {
         query = { ...query, price: { $lte: params.maxPrice } }
     }
-    if (params.category) {
-
+   
+    const categories = JSON.parse(params.categories || '[]')
+   
+    if (categories.length) {
         // query.category = { $eq: params.category } , this method will add an object names category to the query object -nested objects- , and add a value to this object
-        query = { ...query, category: { $eq: params.category } } // while this method says that, spread the values of query as it,and assign a new value to the category object which already exist in the object query 
+        query = { ...query, category: { $eq: categories } } // while this method says that, spread the values of query as it,and assign a new value to the category object which already exist in the object query 
     }
     if (params.searchTerms) {
         const queryRegex = new RegExp(params.searchTerms, 'i');
