@@ -9,8 +9,9 @@ const getItems = async (params: MenuItems.IQuery) => {
     if (params.maxPrice !== undefined) {
         filter.price = { $lte: params.maxPrice };
     }
-    if (params.category) {
-        filter.category = params.category;
+    const categories: [] = JSON.parse(params.categories || '[]');
+    if (categories.length) {
+        filter.category = { $in: categories };
     }
     if (params.searchTerms) {
         const regExp = new RegExp(params.searchTerms, 'i');
@@ -21,6 +22,7 @@ const getItems = async (params: MenuItems.IQuery) => {
             { ingredients: regExp },
         ];
     }
+
     const items = await Item.find(filter);
     return items;
 };
