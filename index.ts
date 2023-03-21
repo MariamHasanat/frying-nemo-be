@@ -1,10 +1,12 @@
 import express, { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import { Item } from './models/index.js';
 import itemRouter from './router/items.router.js'
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json())
 
 app.get('/', (req: Request, res: Response) => {
