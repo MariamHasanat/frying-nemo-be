@@ -3,17 +3,16 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import itemsRoute from './routes/items.route.js';
 import userRoute from './routes/users.route.js';
+import cors from 'cors';
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
 
-app.use(express.json());
+app.use(cors({ origin: 'http://localhost:3000' }));
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server + Hello World');
-});
+app.use(express.json());
 
 app.use(`/item`, itemsRoute);
 app.use(`/user`, userRoute);

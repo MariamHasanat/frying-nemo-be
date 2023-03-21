@@ -21,17 +21,20 @@ export namespace IItem {
         ingredients?: string,
     }
 
-    export interface Request extends express.Request {
-        body: Item,
-    }
+    export interface Request extends express.Request<{}, {}, Item, {}> { }
 }
 
-export interface IUser {
-    _id?: String,
-    email: String,
-    password: String,
-    role: String,
-    fullName: Number,
-    imageUrl: String,
-    authToken: String
+export namespace IUser {
+    export interface User {
+        _id?: String,
+        email: String,
+        password: String,
+        role: String,
+        fullName: Number,
+        imageUrl: String,
+        authToken: String
+    }
+
+
+    export interface Request extends express.Request<{}, {}, User, {}> { }
 }

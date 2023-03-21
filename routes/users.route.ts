@@ -4,12 +4,8 @@ import { IUser } from '../types/index.js';
 
 const router = express.Router();
 
-interface IRequest extends Request {
-    body: IUser,
-}
-
-router.post(`/`, async (req: IRequest, res: Response) => {
-    const { email, password, role, fullName, imageUrl, authToken }: IUser = req.body;
+router.post(`/`, async (req: IUser.Request, res: Response) => {
+    const { email, password, role, fullName, imageUrl, authToken }: IUser.User = req.body;
 
     const newUser = new User({ email, password, role, fullName, imageUrl, authToken })
     newUser.save().then(() => {

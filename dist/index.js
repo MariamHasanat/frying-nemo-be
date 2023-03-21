@@ -12,13 +12,12 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import itemsRoute from './routes/items.route.js';
 import userRoute from './routes/users.route.js';
+import cors from 'cors';
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
-app.get('/', (req, res) => {
-    res.send('Express + TypeScript Server + Hello World');
-});
 app.use(`/item`, itemsRoute);
 app.use(`/user`, userRoute);
 app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {

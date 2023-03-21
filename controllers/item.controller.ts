@@ -3,17 +3,20 @@ import Item from "../models/item.js";
 import { IItem } from "../types/index.js";
 
 const getItems = async (params: IItem.Query) => {
+    console.log(`params: `, params.category);
     const { category, searchTerm, page, maxPrice, ingredients } = params;
 
     const query: mongoose.FilterQuery<IItem.Item> = {};
 
     if (category) {
-        query.category = category;
+        query.category = {
+            $in: category?.split(",")
+        }
     }
 
     if (searchTerm) {
         const searchReg = new RegExp(searchTerm, `i`);
-        query.$or = [{ name: searchReg }, { description: searchReg }]
+        query.$or = [{ name: searchReg }, { description: searchReg }, { ingredients: searchReg }]
     }
 
     if (maxPrice) {
