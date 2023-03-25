@@ -2,20 +2,21 @@ import mongoose from "mongoose";
 import { Item } from "../models/index";
 import { MenuItem } from "../types/index";
 
-const getItems = async (query: MenuItem.IItemQuery) => {
-    const q: mongoose.FilterQuery<MenuItem.IItem> = {} 
+const getItems = async (params: MenuItem.IItemQuery) => {
+    const query: mongoose.FilterQuery<MenuItem.IItem> = {}
 
-    if (query.maxPrice !== undefined) {
-        q.price = { $lte: query.maxPrice }
+    if (params.maxPrice !== undefined) {
+        query.price = { $lte: params.maxPrice }
     }
 
-    if (query.categories) {
-        q.category = { $eq: query.categories}
+    const categories = JSON.parse(params.categories || '[]');
+    if (categories.length) {
+      query.category = { $in: categories }
     }
 
-    if (query.searchTerms) {
-        const RegEx = new RegExp(query.searchTerms, 'i');
-        q.$or = [
+    if (params.searchTerms) {
+        const RegEx = new RegExp(params.searchTerms, 'i');
+        query.$or = [
             { name: RegEx },
             { description: RegEx },
             { category: RegEx },
@@ -23,7 +24,9 @@ const getItems = async (query: MenuItem.IItemQuery) => {
         ]
     }
 
-    const items = await Item.find(q);
+    console.log(query)
+
+    const items = await Item.find(query);
     return items;
 }
 
