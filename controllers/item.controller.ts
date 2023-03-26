@@ -42,6 +42,7 @@ const createItem = (req: MenuItem.ItemRequest) => {
     const newItem = new Item({
         name: req.body.name,
         category: req.body.category,
+        imageUrl: req.body.imageUrl,
         ingredients: req.body.ingredients,
         description: req.body.description,
         price: req.body.price || 10
