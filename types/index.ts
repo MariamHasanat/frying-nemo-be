@@ -20,7 +20,7 @@ export namespace MenuItem {
 
 
     //with generic types
-    export interface ItemRequest extends express.Request<{}, {}, MenuItem.Item, ItemQuery> { }
+    export interface ItemRequest extends express.Request<{ id: string }, {}, MenuItem.Item, ItemQuery> { }
 
 
     //without generic types
