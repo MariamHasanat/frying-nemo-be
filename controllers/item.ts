@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import { Item } from "../models/index.js";
-import { IItem, IItemQuery, IItemRequest } from '../type/index.js';
+import { MenuItem } from '../type/index.js';
 
 
-const getItems = async (params: IItemQuery) => {
-  const query: mongoose.FilterQuery<IItem> = {};
+const getItems = async (params: MenuItem.ItemQuery) => {
+  const query: mongoose.FilterQuery<MenuItem.Item> = {};
 
   if (params.maxPrice !== undefined) {
     query.price = { $lte: params.maxPrice }
@@ -28,12 +28,12 @@ const getItems = async (params: IItemQuery) => {
 
   console.log(query);
 
-  const items = await Item.find(query);
+  const items = await Item.find(query, null, {sort: {'_id': -1}});
 
   return items;
 }
 
-const createItem = (req: IItemRequest) => {
+const createItem = (req: MenuItem.ItemRequest) => {
   const newItem = new Item({
     name: req.body.name,
     category: req.body.category,
@@ -41,7 +41,7 @@ const createItem = (req: IItemRequest) => {
     description: req.body.description,
   });
 
-  newItem.price = req.body.price || 10;
+  newItem.price = req.body.price ?? 10; //coelacing
   return newItem.save()
     .then(()=>{
       return true;

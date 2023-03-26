@@ -26,17 +26,18 @@ const getItems = (params) => __awaiter(void 0, void 0, void 0, function* () {
         ];
     }
     console.log(query);
-    const items = yield Item.find(query);
+    const items = yield Item.find(query, null, { sort: { '_id': -1 } });
     return items;
 });
 const createItem = (req) => {
+    var _a;
     const newItem = new Item({
         name: req.body.name,
         category: req.body.category,
         ingrediants: req.body.ingredients,
         description: req.body.description,
     });
-    newItem.price = req.body.price || 10;
+    newItem.price = (_a = req.body.price) !== null && _a !== void 0 ? _a : 10; //coelacing
     return newItem.save()
         .then(() => {
         return true;
