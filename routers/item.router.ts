@@ -1,7 +1,7 @@
 import express, { Router, Response } from 'express';
 import { MenuItems } from '../types/item.type';
 import itemController from '../controllers/item.controller';
-import { itemValidation } from '../middleware/index';
+import itemValidators from '../middleware/item-validation';
 import { Status } from '../classes/status';
 
 const router = Router();
@@ -16,7 +16,17 @@ router.get('/', async (req: MenuItems.IRequest, res: express.Response) => {
     }
 });
 
-router.post('/', itemValidation, async (req: MenuItems.IRequest, res: Response) => {
+router.get('/:id', itemValidators.itemIdValidation, async (req: MenuItems.IRequest, res: express.Response) => {
+    try {
+        const item = await itemController.getItem(req);
+        res.send(item);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(new Status(500, 'Failed, There is an error and the item is not added', {}));
+    }
+});
+
+router.post('/', itemValidators.itemValidation, async (req: MenuItems.IRequest, res: Response) => {
     try {
         await itemController.createItem(req);
         res.status(201).send(new Status(201, 'OK, The item added successfully'));
@@ -26,5 +36,6 @@ router.post('/', itemValidation, async (req: MenuItems.IRequest, res: Response) 
         res.status(500).send(new Status(500, 'Failed, There is an error and the item is not added'));
     };
 });
+
 
 export default router;

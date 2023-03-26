@@ -1,4 +1,6 @@
-import { FilterQuery } from 'mongoose';
+import { Stats } from 'fs';
+import mongoose, { FilterQuery } from 'mongoose';
+import { Status } from '../classes/status';
 import Item from '../models/item.model';
 import { MenuItems } from '../types/item.type';
 
@@ -23,20 +25,37 @@ const getItems = async (params: MenuItems.IQuery) => {
         ];
     }
 
-    const items = await Item.find(filter);
+    const items = await Item.find(filter, null, { sort: { '_id': -1 } });
     return items;
 };
 
+const getItem = async (req: MenuItems.IRequest) => {
+    const item = await Item.findById(req.params.id);
+    if (item) {
+        const returnedItem: MenuItems.IItem = {
+            name: item.name || '',
+            price: item.price || 10,
+            category: item.category || '',
+            image: item.image || '',
+            description: item.description || '',
+            ingredients: item.ingredients || [],
+        };
+        return new Status(200, 'OK', returnedItem);
+    }
+    return new Status(400, 'Failed');
+};
+
 const createItem = (req: MenuItems.IRequest) => {
+    console.log(req.body.price);
+
     const newItem = new Item({
         name: req.body.name,
         ingredients: req.body.ingredients,
         category: req.body.category,
-        price: req.body.price,
+        price: req.body.price ?? 10,
         description: req.body.description,
-        imageURL: req.body.imageURL
+        image: req.body.image
     });
-
     return newItem.save();
 };
 
@@ -44,5 +63,6 @@ const createItem = (req: MenuItems.IRequest) => {
 
 export default {
     getItems,
+    getItem,
     createItem,
 };

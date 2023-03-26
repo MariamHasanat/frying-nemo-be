@@ -3,12 +3,12 @@ import express from 'express';
 export namespace MenuItems {
 
     export interface IItem {
-        name: String,
-        imageURL: String,
-        description: String,
+        name: string,
+        image: string,
+        description: string,
         price: Number,
-        category: String,
-        ingredients: [String];
+        category: string,
+        ingredients: string[];
     }
 
     export interface IQuery {
@@ -19,6 +19,9 @@ export namespace MenuItems {
     }
 
     export interface IRequest extends express.Request<{}, {}, IItem, IQuery> {
+        params: {
+            id: string;
+        };
     }
 }
 
