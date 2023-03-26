@@ -27,10 +27,25 @@ const getItems = async (params: MenuItem.ItemQuery) => {
       { description: qReg }
     ]
   }
-  const items = await Item.find(query);
+  const items = await Item.find(query , null , { sort: { '_id': -1 } });
   return items;
 }
+const getItemById = async (itemId: string) => {
+  const itemDoc = await Item.findById(itemId);
+  if (itemDoc) {
+    const item: MenuItem.Item = {
+      name: itemDoc.name,
+      category: itemDoc.category,
+      description: itemDoc.description || '',
+      imageUrl: itemDoc.imageUrl || '',
+      ingredients: itemDoc.ingredients,
+      price: itemDoc.price || 0
+    }
 
+    return item;
+  }
+  return null;
+}
 const creatItems = (req: MenuItem.ItemRequest) => {
 
   const newItem = new Item({
@@ -40,7 +55,7 @@ const creatItems = (req: MenuItem.ItemRequest) => {
     description: req.body.description,
     price: req.body.price
   });
-
+  newItem.price = req.body.price ?? 10;
   newItem.save()
     .then(() => {
       return true;
@@ -50,5 +65,6 @@ const creatItems = (req: MenuItem.ItemRequest) => {
 
 export default {
   getItems,
+  getItemById,
   creatItems
 }
