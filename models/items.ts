@@ -9,8 +9,7 @@ const mongooseSchema = new mongoose.Schema({
     imageUrl: String,
     description: String,
     price: {
-        type: Number,
-        required: true
+        type: Number
     },
     ingredients: {
         type: [String],

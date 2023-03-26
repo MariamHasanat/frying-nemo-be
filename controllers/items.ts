@@ -20,7 +20,7 @@ const getItems = async (params: MenuItem.IQuery) => {
     }
     console.log(query);
     
-    return await Item.find(query); //it returns the items as array of js objects
+    return await Item.find(query , null , {sort : {_id : -1}}); //it returns the items as array of js objects sorted descending by id
 }
 
 const getSingleItem = async (id: string) => {
@@ -30,7 +30,7 @@ const getSingleItem = async (id: string) => {
 const createItem = (item: MenuItem.IItem) => {
     const newItem = new Item({
         name: item.name,
-        price: item.price,
+        price: item.price ?? 10,  // the value is falled back to 10 only if the price is null or undefined 
         category: item.category,
         ingredients: item.ingredients,
         description: item.description,
