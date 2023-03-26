@@ -46,15 +46,15 @@ const createItem = (req: MenuItem.IItemRequest, res: Response) => {
         ingredients: req.body.ingredients,
     });
 
-    item.validate()
-        .then(() => {
-            item.save();
-            res.status(200).send('Item added successfully');
-        })
-        .catch((err) => {
-            res.status(500).send(err.message);
-            console.log(err.message);
-        });
+    // item.validate()
+    //     .then(() => {
+    item.save();
+    //     res.status(200).send('Item added successfully');
+    // })
+    // .catch((err) => {
+    //     res.status(500).send(err.message);
+    //     console.log(err.message);
+    // });
 }
 
 const updateItem = () => {

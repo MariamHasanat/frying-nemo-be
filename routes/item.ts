@@ -23,7 +23,10 @@ router.delete('/:id', async (req, res) => {
 })
 
 router.post('/', async (req: MenuItem.IItemRequest, res) => {
+    const newItem = req.body;
+    console.log({ newItem });
     itemController.createItem(req, res);
+    res.status(201).end();
 });
 
 router.put('/', (req, res) => {
