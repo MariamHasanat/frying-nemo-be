@@ -1,6 +1,6 @@
 import express from "express";
-export namespace MenuItem{
-  export interface Item{
+export namespace MenuItem {
+  export interface Item {
     name: string;
     imageUrl: string;
     description: string;
@@ -8,19 +8,21 @@ export namespace MenuItem{
     category: string;
     ingredients: string[];
   }
-  export interface ItemQuery{
-    
-   
-        category?:string;
-        searchTerms?:string;
-        page?:number;
-        maxPrice?:number;
+  export interface ItemQuery {
+    categories?: string;
+    searchTerms?: string;
+    page?: number;
+    maxPrice?: number;
+  }
 
-    }
-    export interface ItemRequest extends express.Request{
-      body : Item 
+  // with generic types
+  export interface ItemRequest extends express.Request<{ id: string }, {}, MenuItem.Item, ItemQuery> { }
+
+  // without generic types
+  // export interface ItemRequest extends express.Request {
+  //   body: Item
+  // }
 }
-   
 export namespace User {
   export interface IUser {
     email: string;
@@ -31,8 +33,3 @@ export namespace User {
     authToken: string;
   }
 }
-  
-  
-
-}
-  

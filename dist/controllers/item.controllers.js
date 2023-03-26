@@ -15,7 +15,7 @@ const getItems = (params) => __awaiter(void 0, void 0, void 0, function* () {
     if (params.maxPrice !== undefined) {
         query.price = { $lte: params.maxPrice };
     }
-    const categories = JSON.parse(params.category || '[]');
+    const categories = JSON.parse(params.categories || '[]');
     if (categories.length) {
         query.category = { $in: categories };
     }

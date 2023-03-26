@@ -13,34 +13,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const item_models_1 = __importDefault(require("../models/item.models"));
-const item_controlles_1 = __importDefault(require("../controllers/item.controlles"));
+const item_validation_1 = require("../middlewares/item-validation");
+const item_controllers_1 = __importDefault(require("../controllers/item.controllers"));
 const router = express_1.default.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const items = yield item_controlles_1.default.getItems(req.query);
-    res.status(200).send(items);
+    try {
+        const items = yield item_controllers_1.default.getItems(req.query);
+        res.status(200).send(items);
+    }
+    catch (error) {
+        res.status(500).send("Failed to find items!");
+    }
 }));
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.body.name || !req.body.category) {
-        return res.status(400).send("Name and category are required!");
+router.get('/:id', item_validation_1.validateItemId, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const item = yield item_controllers_1.default.getItemById(req.params.id);
+        res.status(200).send(item);
     }
-    if (req.body.price && typeof req.body.price !== 'number') {
-        return res.status(400).send("Price Must be number!");
+    catch (error) {
+        res.status(500).send();
     }
-    const newItem = new item_models_1.default({
-        name: req.body.name,
-        category: req.body.category,
-        ingredients: req.body.ingredients,
-        description: req.body.description
-    });
-    newItem.price = req.body.price || 10;
-    newItem.save()
-        .then(() => {
-        res.status(201).send("created");
-    })
-        .catch((err) => {
-        console.error(err.message);
+}));
+router.post('/', item_validation_1.validateItem, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield item_controllers_1.default.createItem(req);
+        res.status(201).send();
+    }
+    catch (error) {
         res.status(500).send("Failed to add item!");
-    });
+    }
 }));
 exports.default = router;
