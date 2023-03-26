@@ -1,7 +1,8 @@
 import express from "express";
-import { IItemRequest } from "../type/index.js";
+import { MenuItem} from "../type/index.js";
+import mongoose from "mongoose";
 
-export const validateItem = (req: IItemRequest, res: express.Response, next: express.NextFunction) =>{
+export const validateItem = (req: MenuItem.ItemRequest, res: express.Response, next: express.NextFunction) =>{
     if (!req.body.name || !req.body.category) {
         return res.status(400).send("Name and category are required!");
       }
@@ -9,4 +10,15 @@ export const validateItem = (req: IItemRequest, res: express.Response, next: exp
         return res.status(400).send("Price must be number!");
       }
       next();
+}
+
+export const validateItemId = (req: MenuItem.ItemRequest, res: express.Response, next: express.NextFunction) => {
+  if (!req.params.id) {
+    return res.status(400).send("ID is required!");
+  }
+
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    return res.status(400).send("ID is Not Valid!");
+  }
+  next();
 }

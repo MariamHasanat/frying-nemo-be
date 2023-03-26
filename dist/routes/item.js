@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import express from "express";
-import { validateItem } from "../middlewars/item-validation.js";
+import { validateItem, validateItemId } from "../middlewars/item-validation.js";
 import itemController from '../controllers/item.js';
 const router = express.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -18,6 +18,15 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         res.status(500).send('failed to find items!');
+    }
+}));
+router.get('/:id', validateItemId, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const item = yield itemController.getItemById(req.params.id);
+        res.status(200).send(item);
+    }
+    catch (error) {
+        res.status(500).send();
     }
 }));
 router.post('/', validateItem, (req, res) => __awaiter(void 0, void 0, void 0, function* () {

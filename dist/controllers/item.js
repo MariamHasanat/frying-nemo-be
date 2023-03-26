@@ -29,6 +29,21 @@ const getItems = (params) => __awaiter(void 0, void 0, void 0, function* () {
     const items = yield Item.find(query, null, { sort: { '_id': -1 } });
     return items;
 });
+const getItemById = (itemId) => __awaiter(void 0, void 0, void 0, function* () {
+    const itemDoc = yield Item.findById(itemId);
+    if (itemDoc) {
+        const item = {
+            name: itemDoc.name,
+            category: itemDoc.category,
+            description: itemDoc.description || '',
+            imageUrl: itemDoc.imageUrl || '',
+            ingredients: itemDoc.ingredients,
+            price: itemDoc.price || 0
+        };
+        return item;
+    }
+    return null;
+});
 const createItem = (req) => {
     var _a;
     const newItem = new Item({
@@ -45,5 +60,6 @@ const createItem = (req) => {
 };
 export default {
     getItems,
-    createItem
+    createItem,
+    getItemById
 };
