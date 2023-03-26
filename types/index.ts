@@ -22,6 +22,6 @@ export namespace MenuItem {
     // }
 
     // to set the type of request body to (IItem) , and the request query string to (IQuery) 
-    export interface IRequest extends express.Request<{}, {}, IItem, IQuery , {}> { }
+    export interface IRequest extends express.Request<{id:string}, {}, IItem, IQuery , {}> { }
 
 }

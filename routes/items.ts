@@ -1,7 +1,7 @@
 import express from 'express'
 import { createItem, getItems, getSingleItem } from '../controllers/items';
 import { MenuItem } from '../types/index';
-import { validateItem } from '../middleware/validation'
+import { validateItem, validateItemId } from '../middleware/validation'
 
 const itemsRouter = express.Router();
 
@@ -11,9 +11,14 @@ itemsRouter.get('/', async (req, res) => {
   res.status(200).send(items);
 })
 
-itemsRouter.get('/:id', async (req, res) => {
-  const item = await getSingleItem(req.params.id);
-  res.send(item)
+itemsRouter.get('/:id', validateItemId , async (req:MenuItem.IRequest, res) => {
+  const item = await getSingleItem(req.params.id) as MenuItem.IItem;
+  if (item) {
+    res.send(item)
+  }
+  else {
+    res.status (500).send ('something went wrong')
+  }
 })
 
 itemsRouter.delete('/:id', async (req, res) => {
@@ -28,9 +33,10 @@ itemsRouter.put('/:id', async (req, res) => {
 itemsRouter.post('/', validateItem, (req: MenuItem.IRequest, res) => {
   createItem(req.body)
     .then(() => {
-      res.send("Item is added into the data base :)")
+      res.status(201).send("Item is added into the data base :)")
     })
     .catch(error => {
+      console.log(error.message);
       res.status(500).send("Something went wrong, item not added")
     })
 })

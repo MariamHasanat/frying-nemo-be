@@ -24,7 +24,7 @@ const getItems = async (params: MenuItem.IQuery) => {
 }
 
 const getSingleItem = async (id: string) => {
-    return await Item.find({ _id: { $eq: id } });
+    return await Item.findById(id);
 }
 
 const createItem = (item: MenuItem.IItem) => {
