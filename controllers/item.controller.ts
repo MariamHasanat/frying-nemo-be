@@ -11,7 +11,7 @@ const getItems = async (params: MenuItem.IItemQuery) => {
 
     const categories = JSON.parse(params.categories || '[]');
     if (categories.length) {
-      query.category = { $in: categories }
+        query.category = { $in: categories }
     }
 
     if (params.searchTerms) {
@@ -23,8 +23,6 @@ const getItems = async (params: MenuItem.IItemQuery) => {
             { ingredients: RegEx }
         ]
     }
-
-    console.log(query)
 
     const items = await Item.find(query);
     return items;
