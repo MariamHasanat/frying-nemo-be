@@ -1,29 +1,28 @@
 import mongoose from "mongoose";
 import { Item } from "../models/index";
-import { MenuItem } from '../types/index';
-
+import { MenuItem } from "../types/index";
 
 const getItems = async (params: MenuItem.IItemQuery) => {
   const query: mongoose.FilterQuery<MenuItem.IItem> = {};
 
   if (params.maxPrice !== undefined) {
-    query.price = { $lte: params.maxPrice }
+    query.price = { $lte: params.maxPrice };
   }
   const categories = JSON.parse(params.categories || "[]");
-  console.debug(categories); 
+  console.debug(categories);
   if (categories.length) {
-    query.category = { $in: categories }
+    query.category = { $in: categories };
   }
 
   if (params.searchTerms) {
-    const qReg = new RegExp(params.searchTerms, 'i');
+    const qReg = new RegExp(params.searchTerms, "i");
 
     query.$or = [
       { name: qReg },
       { description: qReg },
       { category: qReg },
-      { ingredients: qReg }
-    ]
+      { ingredients: qReg },
+    ];
   }
 
   const items = await Item.find(query);
@@ -31,11 +30,10 @@ const getItems = async (params: MenuItem.IItemQuery) => {
   return items;
 };
 
-
-const getItem = async (id: string) =>{
+const getItem = async (id: string) => {
   const item = await Item.findById(id);
   return item;
-}
+};
 
 const createItem = (req: MenuItem.IItemRequest) => {
   const newItem = new Item({
@@ -48,14 +46,13 @@ const createItem = (req: MenuItem.IItemRequest) => {
 
   newItem.price = req.body.price || 10;
 
-  return newItem.save()
-    .then(() => {
-      return true; // created successfully      
-    });
-}
+  return newItem.save().then(() => {
+    return true; // created successfully
+  });
+};
 
 export default {
   getItems,
   getItem,
-  createItem
-}
+  createItem,
+};

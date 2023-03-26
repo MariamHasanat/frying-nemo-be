@@ -1,1 +1,1 @@
-export {default as Item} from './item.model';
+export { default as Item } from "./item.model";

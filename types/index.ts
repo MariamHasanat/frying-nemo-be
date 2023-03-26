@@ -16,7 +16,13 @@ export namespace MenuItem {
     maxPrice?: number;
   }
   //with generic types
-  export interface IItemRequest extends express.Request<{id: string}, {},MenuItem.IItem, MenuItem.IItemQuery> {}
+  export interface IItemRequest
+    extends express.Request<
+      { id: string },
+      {},
+      MenuItem.IItem,
+      MenuItem.IItemQuery
+    > {}
 
   //without generic types
   /*
