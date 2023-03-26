@@ -12,7 +12,8 @@ router.get('/', async (req: MenuItem.IItemRequest, res: Response) => {
 });
 
 router.get('/:id', async (req: Request, res: Response) => {
-    const result = await Item.find();
+    const itemId = req.params.id;
+    const result = await Item.findOne({ _id: itemId });
     res.send(result);
 });
 
