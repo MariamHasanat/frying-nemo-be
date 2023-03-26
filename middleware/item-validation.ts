@@ -1,4 +1,5 @@
 import express from 'express'
+import mongoose from 'mongoose';
 const validateItem = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     if (req.headers['content-type'] !== 'application/json') {
         res.status(400).send('Expecting JSON data');
@@ -17,4 +18,14 @@ const validateItem = (req: express.Request, res: express.Response, next: express
     next();
 }
 
-export default { validateItem }
+const validateItemId = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const id = req.params.id;
+
+    if (!mongoose.isValidObjectId(id)) {
+        res.status(400).send('invalid id');
+        return;
+    }
+    next();
+}
+
+export default { validateItem, validateItemId }

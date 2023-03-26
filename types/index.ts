@@ -23,7 +23,7 @@ export namespace MenuItem {
     // }
 
     // with generic types
-    export interface IItemRequest extends express.Request<{}, {}, IItem, IItemQuery> { }
+    export interface IItemRequest extends express.Request<{ id: string }, {}, IItem, IItemQuery> { }
 
     // export type abc ...
     // export enum xyz ...

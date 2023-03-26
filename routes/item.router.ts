@@ -14,6 +14,26 @@ router.get('/', async (req: MenuItem.IItemRequest, res) => {
 });
 
 /**
+ * returns an items by id
+ */
+router.get('/:id', itemValidation.validateItemId, async (req: MenuItem.IItemRequest, res) => {
+    // 1. add middleware to check if id is valid (mongoose.isValidObjectId...)
+    const id = req.params.id;
+
+
+    const item = await itemController.getItemById(id);
+    if (item) {
+        res.send(item);
+        return;
+    }
+    else{
+        res.status(400).send('item not found');
+    }
+
+
+});
+
+/**
  * create an item
  */
 router.post('/', itemValidation.validateItem, (req: MenuItem.IItemRequest, res) => {

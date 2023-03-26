@@ -28,6 +28,22 @@ const getItems = async (params: MenuItem.IItemQuery) => {
     return items;
 }
 
+const getItemById = async (id: string) => {
+    const itemDoc = await Item.findById(id);
+    if (itemDoc) {
+        const item: MenuItem.IItem = {
+            name: itemDoc.name,
+            price: itemDoc.price,
+            category: itemDoc.category,
+            description: itemDoc.description || '',
+            imageURL: itemDoc.imageURL || '',
+            ingredients: itemDoc.ingredients
+        }
+        return itemDoc;
+    }
+    return null;
+}
+
 const createItem = (body: MenuItem.IItem) => {
     const newItem = new Item({
         name: body.name,
@@ -43,5 +59,6 @@ const createItem = (body: MenuItem.IItem) => {
 
 export default {
     getItems,
-    createItem
+    createItem,
+    getItemById
 }
