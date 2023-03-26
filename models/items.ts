@@ -6,14 +6,14 @@ const ItemsSchema = new mongoose.Schema({
         required:true ,
         unique: true
     },
-    imageUrl: String,
-    description: String,
+    imageUrl: "String",
+    description: "String",
     price: Number,
     category: {
         type: "String",
         required: true
     },
-    ingredients: [String],
+    ingredients: ["String"],
     addedBy: Schema.Types.ObjectId
 
 })

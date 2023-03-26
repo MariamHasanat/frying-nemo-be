@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,39 +8,49 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import Item from "../models/items.js";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const items_1 = __importDefault(require("../models/items"));
 const getItems = (param) => __awaiter(void 0, void 0, void 0, function* () {
     const query = {};
     if (param.maxPrice !== undefined)
         query.price = { $lte: param.maxPrice };
-    if (param.category)
-        query.category = { $eq: param.category };
+    const categories = JSON.parse(param.category || "[]");
+    if (categories.length)
+        query.category = { $in: categories };
     if (param.searchTerms) {
         const qReg = new RegExp(param.searchTerms, "i");
         query.$or = [
-            { name: qReg }, { description: qReg }, { category: qReg }
+            { name: qReg }, { description: qReg }, { category: qReg }, { ingredients: qReg }
         ];
     }
-    if (param.page)
-        query.page = { $eq: param.page };
-    const Items = yield Item.find(query);
+    const Items = yield items_1.default.find(query, null, { sort: { "price": 1 } });
     return Items;
 });
-const createItem = (data, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!data.name || !data.category)
-        return res.status(400).send("Name or Category not found and there are required");
-    if (data.price && typeof data.price !== "number")
-        return res.status(400).send("Price must be a number");
-    const NewItem = {
-        name: data.name,
-        category: data.category || "",
-        ingredients: data.ingredients,
-        description: data.description,
-        price: data.price || 0
-    };
-    return NewItem;
-});
-export default {
+const getItemByID = (idItem) => {
+    const itemDoc = items_1.default.findById(idItem);
+    console.log(itemDoc);
+    if (itemDoc) {
+        return itemDoc;
+    }
+    return null;
+};
+const createItem = (data) => {
+    var _a;
+    const NewItem = new items_1.default({
+        name: data.body.name,
+        category: data.body.category || "",
+        ingredients: data.body.ingredients,
+        description: data.body.description,
+        imageUrl: data.body.imageUrl,
+        price: (_a = data.body.price) !== null && _a !== void 0 ? _a : 10
+    });
+    return NewItem.save();
+};
+exports.default = {
     getItems,
-    createItem
+    createItem,
+    getItemByID
 };

@@ -1,31 +1,32 @@
-import express, { query } from "express";
-import Item from "../models/items.js";
-import { IItem as IItemRequest } from '../dist/Types/index.js';
-import itemControl from "../controllers/item.control.js";
-import { IItemQuery } from '../dist/Types/index.js';
+import express from 'express';
+import { validateItem,validateItemId } from '../middleware/item-validation'
+import { MenuItem } from '../types/index.js'
+import itemControl from '../controllers/item.control'
 
 
+const routes = express.Router();
 
-const routes = express.Router()
+routes.get('/', async (req: MenuItem.ItemRequest, res: express.Response) => {
+  const items = await itemControl.getItems(req.query);
+  res.status(200).send(items);
+});
 
-routes.get('/', async (req, res) => {
+routes.get('/:id', validateItemId, async (req: MenuItem.ItemRequest, res: express.Response<MenuItem.IItem | null>) => {
+  try {
+    const item = await itemControl.getItemByID(req.params.id);
+    res.status(200).send(item as MenuItem.IItem);
+  } catch (error) {
+    res.status(500).send();
+  }
+});
 
-    const items = await itemControl.getItems(req.query)
-    res.status(200).send(items)
-})
-
-routes.post("/", async (req, res) => {
-    const items = await itemControl.createItem(req.body, res)
-
-    const newItems = new Item(items)
-    newItems.save()
-        .then(() => {
-            res.status(201).send("Item created successful")
-        }).catch(() => {
-            res.status(400).send("Failed to create Item")
-        })
-
-
-})
+routes.post('/', validateItem, async (req: MenuItem.ItemRequest, res: express.Response, next: express.NextFunction) => {
+  try {
+    await itemControl.createItem(req);
+    res.status(201).send();
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default routes

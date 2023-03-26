@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,22 +8,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import express from "express";
-import Item from "../models/items.js";
-import itemControl from "../controllers/item.control.js";
-const routes = express.Router();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const item_validation_1 = require("../middleware/item-validation");
+const item_control_1 = __importDefault(require("../controllers/item.control"));
+const routes = express_1.default.Router();
 routes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const items = yield itemControl.getItems(req.query);
+    const items = yield item_control_1.default.getItems(req.query);
     res.status(200).send(items);
 }));
-routes.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const items = yield itemControl.createItem(req.body, res);
-    const newItems = new Item(items);
-    newItems.save()
-        .then(() => {
-        res.status(201).send("Item created successful");
-    }).catch(() => {
-        res.status(400).send("Failed to create Item");
-    });
+routes.get('/:id', item_validation_1.validateItemId, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const item = yield item_control_1.default.getItemByID(req.params.id);
+        res.status(200).send(item);
+    }
+    catch (error) {
+        res.status(500).send();
+    }
 }));
-export default routes;
+routes.post('/', item_validation_1.validateItem, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield item_control_1.default.createItem(req);
+        res.status(201).send();
+    }
+    catch (error) {
+        next(error);
+    }
+}));
+exports.default = routes;

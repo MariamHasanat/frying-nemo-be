@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,20 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import express from "express";
-import User from "../models/User.js";
-import jwt from 'jsonwebtoken';
-const routes = express.Router();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const User_js_1 = __importDefault(require("../models/User.js"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const routes = express_1.default.Router();
 routes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User.find();
+    const user = yield User_js_1.default.find();
     res.status(200).send(user);
 }));
 routes.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
-    const token = jwt.sign(body, body.password);
+    const token = jsonwebtoken_1.default.sign(body, body.password);
     body.authToken = token.toString();
     console.log(body.authToken);
-    const NewUser = new User({
+    const NewUser = new User_js_1.default({
         password: body.password,
         email: body.email,
         fullName: body.fullName,
@@ -34,4 +39,4 @@ routes.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(400).send("Failed to create User");
     });
 }));
-export default routes;
+exports.default = routes;

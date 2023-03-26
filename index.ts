@@ -4,11 +4,14 @@ import mongoose from 'mongoose';
 import {Item} from "./models/index.js"
 import  ItemsRouter  from './routes/Item.js';
 import UsersRouter from './routes/user.js'
+import cors from 'cors';
+
+
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
-
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json())
 app.use("/user",UsersRouter)
 app.use("/items",ItemsRouter)
