@@ -36,7 +36,8 @@ const createItem = (req: MenuItem.IItemRequest) => {
     name: req.body.name,
     category: req.body.category,
     ingredients: req.body.ingredients,
-    description: req.body.description
+    description: req.body.description,
+    imageUrl: req.body.imageUrl,
   });
 
   newItem.price = req.body.price || 10;
