@@ -18,7 +18,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 
 router.delete('/:id', async (req, res) => {
     const itemId = req.params.id;
-    const result = await Item.deleteOne({ name: itemId });
+    const result = await Item.deleteOne({ _id: itemId });
     res.status(200).send('deleted successfully');
 })
 
