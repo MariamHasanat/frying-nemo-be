@@ -20,6 +20,17 @@ itemsRouter.get('/', async (req: MenuItem.IItemRequest, res) => {
 
 })
 
+itemsRouter.get('/:id',validItem, async (req: MenuItem.IItemRequest, res : express.Response<MenuItem.Item|null>) => {
+    try {
+        const item = await Itemcontroller.getItemById(req.params.id);
+        res.status(200).send(item);
+    }
+    catch(err) {
+        res.status(500).send()
+    }
+
+})
+
 //to add item into the data base 
 itemsRouter.post('/',validItem, async(req: MenuItem.IItemRequest, res : express.Response) => {//give type  to give auto complete 
     try {

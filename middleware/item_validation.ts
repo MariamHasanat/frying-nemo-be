@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import { MenuItem } from "../types/index.js";
 
 
@@ -11,5 +12,17 @@ export const validItem =( req:MenuItem.IItemRequest , res : express.Response , n
         return res.status(400).send("Price must be number!");
       }
       next();
+
+}
+
+export const validItemId =( req:MenuItem.IItemRequest , res : express.Response , next :express.NextFunction)=>{
+
+  if (!req.params.id) {
+      return res.status(400).send("ID is required!");
+    }
+   if(!mongoose.isValidObjectId (req.params.id)){
+    return res.status(400).send("ID Not Valid")
+   }
+    next();
 
 }

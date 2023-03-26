@@ -7,18 +7,18 @@ export namespace MenuItem {// متل خزانة اواعي فيو اكتر من 
         imageUrl: string,
         description: string,
         price: number,
-        category: string[],
+        category: string,
         ingredient: string[]
     }
     export interface ItemQuery {
         categories?: string;
-        searchTerms?: string;
+        searchTerm?: string;
         page?: number,
         maxPrice?: number
 
     }
     //with geniric type 
-    export interface IItemRequest extends express.Request<{},{},MenuItem.Item,ItemQuery>{}
+    export interface IItemRequest extends express.Request<{id:string},{},MenuItem.Item,ItemQuery>{}
 
 
      //without geniric type

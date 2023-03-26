@@ -5,13 +5,13 @@ import { MenuItem } from "../types/index.js";
 
 const getItem = async (params: MenuItem.ItemQuery) => {
     const query: mongoose.FilterQuery<MenuItem.Item> = {};
-     
+
     if (params.maxPrice !== undefined) {
         query.price = { $lte: params.maxPrice }  //params.maxPrice less than  or equal 
     }
 
-    if (params.searchTerms) {
-        const qReg = new RegExp(params.searchTerms, 'i')//i for case insinsetive , regex : make easer to put condition  
+    if (params.searchTerm) {
+        const qReg = new RegExp(params.searchTerm, 'i')//i for case insinsetive , regex : make easer to put condition  
 
 
         query.$or = [
@@ -22,36 +22,52 @@ const getItem = async (params: MenuItem.ItemQuery) => {
         ]
     }
 
-    const categories = JSON.parse(params.categories ||'[]');
+    const categories = JSON.parse(params.categories || '[]');
     if (categories.length) {
         query.category = { $in: categories }
     }
     console.log(JSON.stringify(query));
 
 
-    const items = await Item.find(query,null,{sort :{'_id':-1}});//return all items as a json if just () else no return specific and sort it dec
+    const items = await Item.find(query, null, { sort: { '_id': -1 } });//return all items as a json if just () else no return specific and sort it dec
     return (items);
 }
 
-const creatItem = (req:MenuItem.IItemRequest) => {
-    const newItem  = new Item ({
-        name : req.body.name , 
-        price: req.body.price??10 , // ?? instead of if (req.body.price === null || req.body.price === undefined) {
-                                                      //   newItem.price = 10;
-                                      // }
-        category: req.body.category ,
+const creatItem = (req: MenuItem.IItemRequest) => {
+    const newItem = new Item({
+        name: req.body.name,
+        price: req.body.price ?? 10, // ?? instead of if (req.body.price === null || req.body.price === undefined) {
+        //   newItem.price = 10
+        category: req.body.category,
         ingredient: req.body.ingredient,
-        description : req.body.description ,
-        imageUrl : req.body.imageUrl
+        description: req.body.description,
+        imageUrl: req.body.imageUrl
 
     })
-    return  newItem.save()//strore in data base 
-    .then(()=>{
-        return true;//created  successfuly
-    })
+    return newItem.save()//strore in data base 
+        .then(() => {
+            return true;//created  successfuly
+        })
 
+}
+
+const getItemById = async (itemId: string) => {
+    const itemDoc = await Item.findById(itemId);//or we can use findOne
+    if (itemDoc) {
+        const item: MenuItem.Item = {
+            name: itemDoc.name,
+            category: itemDoc.category || '',
+            description: itemDoc.description || '',
+            imageUrl: itemDoc.imageUrl || '',
+            ingredient: itemDoc.ingredient,
+            price: itemDoc.price || 0
+        }
+        return item;
+    }
+    return null;
 }
 export default {
     getItem,
+    getItemById,
     creatItem
 }
