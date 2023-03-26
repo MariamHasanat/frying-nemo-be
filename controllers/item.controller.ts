@@ -11,7 +11,7 @@ const getItems = async (params: MenuItem.ItemQuery) => {
     }
 
     if (params.categories) {
-        query.category = { $in: params.categories };
+        query.category = { $in: JSON.parse(params.categories) }
     }
 
     if (params.searchTerms) {
