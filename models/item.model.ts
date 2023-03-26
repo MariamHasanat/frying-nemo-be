@@ -9,7 +9,7 @@ const ItemModel = new mongoose.Schema({
     imageUrl: String,
     description: String,
     price: {
-        type: "String"
+        type: "Number",
     },
     category: {
         required: true,

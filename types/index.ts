@@ -17,7 +17,7 @@ export interface IItemQuery {
   searchTerms?: string,
   page?: number
 }
-export interface IItemRequest extends express.Request<{},{},MenuItem.IItem,IItemQuery,{}> {}
+export interface IItemRequest extends express.Request<{id:string},{},MenuItem.IItem,IItemQuery,{}> {}
 }
 export namespace User {
   export interface IUser {
