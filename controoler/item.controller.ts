@@ -29,14 +29,16 @@ const getItem = async (params: MenuItem.ItemQuery) => {
     console.log(JSON.stringify(query));
 
 
-    const items = await Item.find(query);//return all items as a json if just () else no return specific 
+    const items = await Item.find(query,null,{sort :{'_id':-1}});//return all items as a json if just () else no return specific and sort it dec
     return (items);
 }
 
 const creatItem = (req:MenuItem.IItemRequest) => {
     const newItem  = new Item ({
         name : req.body.name , 
-        price: req.body.price , 
+        price: req.body.price??10 , // ?? instead of if (req.body.price === null || req.body.price === undefined) {
+                                                      //   newItem.price = 10;
+                                      // }
         category: req.body.category ,
         ingredient: req.body.ingredient,
         description : req.body.description ,
