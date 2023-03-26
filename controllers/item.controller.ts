@@ -29,6 +29,12 @@ const getItems = async (params: MenuItem.IItemQuery) => {
   const items = await Item.find(query);
 
   return items;
+};
+
+
+const getItem = async (id: string) =>{
+  const item = await Item.findById(id);
+  return item;
 }
 
 const createItem = (req: MenuItem.IItemRequest) => {
@@ -50,5 +56,6 @@ const createItem = (req: MenuItem.IItemRequest) => {
 
 export default {
   getItems,
+  getItem,
   createItem
 }

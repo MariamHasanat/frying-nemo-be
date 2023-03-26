@@ -14,6 +14,15 @@ router.get('/', async (req: MenuItem.IItemRequest, res) => {
   }
 });
 
+router.get('/:id', async (req: MenuItem.IItemRequest, res: express.Response<MenuItem.IItem | null | string>) => {
+  try {
+    const item = await itemController.getItem(req.params.id) as MenuItem.IItem | null | string;
+    res.status(200).send(item);
+  } catch (error) {
+    res.status(500).send("Failed to find the item!");
+  }
+});
+
 router.post('/', validateItem, async (req: MenuItem.IItemRequest, res: express.Response) => {
   try {
     await itemController.createItem(req);
