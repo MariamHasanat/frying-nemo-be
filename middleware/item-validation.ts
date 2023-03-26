@@ -1,6 +1,7 @@
 
 import express from "express";
-import {  MenuItems } from "../types/index";
+import mongoose from "mongoose";
+import { MenuItems } from "../types/index";
 
 const validItem = (req: MenuItems.ItemRequest, res: express.Response, next: express.NextFunction) => {
     if (!req.body.name || !req.body.category) {
@@ -12,4 +13,15 @@ const validItem = (req: MenuItems.ItemRequest, res: express.Response, next: expr
 
     next();
 }
-export default validItem;
+
+
+export const validateItemId = (req: MenuItems.ItemRequest, res: express.Response, next: express.NextFunction) => {
+    if (!req.params.id) {
+        return res.status(400).send("ID is required!");
+    }
+
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        return res.status(400).send("ID is Not Valid!");
+    }
+    next();
+}
