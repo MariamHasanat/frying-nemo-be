@@ -33,7 +33,7 @@ const getItems = async (params: MenuItem.ItemQuery) => {
 
     console.log(query);
 
-    const items = await Item.find(query);
+    const items = await Item.find(query, null, { sort: { '_id': -1 } });
 
     return items;
 }
@@ -45,9 +45,14 @@ const createItem = (req: MenuItem.ItemRequest) => {
         imageUrl: req.body.imageUrl,
         ingredients: req.body.ingredients,
         description: req.body.description,
-        price: req.body.price || 10
+        price: req.body.price ?? 10
     });
 
+    // newItem.price = req.body.price ?? 10;
+
+    // if (req.body.price === null || req.body.price === undefined) {
+    //   newItem.price = 10;
+    // }
     return newItem.save()
         .then(() => {
             return true;
