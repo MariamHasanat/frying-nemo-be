@@ -31,7 +31,6 @@ const getItems = (param) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getItemByID = (idItem) => {
     const itemDoc = items_1.default.findById(idItem);
-    console.log(itemDoc);
     if (itemDoc) {
         return itemDoc;
     }

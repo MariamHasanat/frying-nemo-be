@@ -25,7 +25,6 @@ const getItems = async (param: MenuItem.IItemQuery) => {
 }
 const getItemByID = (idItem: string) => {
     const itemDoc = Item.findById(idItem)
-    console.log(itemDoc)
     if (itemDoc) {
         return itemDoc
     }
