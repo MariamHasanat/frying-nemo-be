@@ -1,5 +1,5 @@
 import express from 'express'
-import { createItem, getItems, getSingleItem } from '../controllers/items';
+import { createItem, deleteItem, getItems, getSingleItem } from '../controllers/items';
 import { MenuItem } from '../types/index';
 import { validateItem, validateItemId } from '../middleware/validation'
 
@@ -22,7 +22,14 @@ itemsRouter.get('/:id', validateItemId , async (req:MenuItem.IRequest, res) => {
 })
 
 itemsRouter.delete('/:id', async (req, res) => {
-
+  deleteItem(req.params.id)
+  .then (() => {
+    res.send('Item deleted successfully :)')
+  })
+  .catch ((error) => {
+    console.log(error.message);
+    res.status(500).send("something went wrong, Item not deleted :(")
+  })
 })
 
 itemsRouter.put('/:id', async (req, res) => {

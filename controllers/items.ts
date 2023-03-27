@@ -39,4 +39,8 @@ const createItem = (item: MenuItem.IItem) => {
     return newItem.save();
 }
 
-export { getItems, createItem, getSingleItem }
+const deleteItem = (id:string) => {
+    return Item.deleteOne({_id: {$eq : id}})
+}
+
+export { getItems, createItem, getSingleItem , deleteItem }
