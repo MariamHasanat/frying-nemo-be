@@ -37,5 +37,11 @@ router.post('/', itemValidators.itemValidation, async (req: MenuItems.IRequest, 
     };
 });
 
+router.delete('/:id', async (req: MenuItems.IRequest, res: Response) => {
+    
+    const deleteVal = await itemController.deleteItem(req.params.id);
+    res.status(deleteVal.status).send(deleteVal);
+
+});
 
 export default router;

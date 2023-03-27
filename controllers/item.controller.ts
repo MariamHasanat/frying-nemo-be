@@ -1,5 +1,4 @@
-import { Stats } from 'fs';
-import mongoose, { FilterQuery } from 'mongoose';
+import { FilterQuery } from 'mongoose';
 import { Status } from '../classes/status';
 import Item from '../models/item.model';
 import { MenuItems } from '../types/item.type';
@@ -59,10 +58,20 @@ const createItem = (req: MenuItems.IRequest) => {
     return newItem.save();
 };
 
+const deleteItem = async (id: string) => {
+    const del = await Item.deleteMany({ _id: id });
+
+    if (del.acknowledged)
+        return new Status(200, 'OK, the item is deleted');
+    return new Status(500, 'Internal server error');
+
+};
+
 
 
 export default {
     getItems,
     getItem,
     createItem,
+    deleteItem,
 };
