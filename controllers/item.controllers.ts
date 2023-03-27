@@ -46,9 +46,23 @@ const getItem = async (itemId: string) => {
   }
   return null;
 }
+const deleteItem = async (idItem: string) => {
+  const itemDoc = await Item.findByIdAndRemove({ _id: idItem });
+  if (itemDoc) {
+    return itemDoc;
+  }
+  return null;
+}
+const updateItem = async (idItem: string, updatedItem: any) => {
+  const itemDoc = await Item.findOneAndUpdate({ _id: idItem }, updatedItem, { new: true });
+  if (itemDoc) {
+    return itemDoc;
+  }
+  return null;
+}
 
 const createItem = (req: MenuItem.IItemRequest) => {
-  const newItem = new Item ({
+  const newItem = new Item({
     name: req.body.name,
     category: req.body.category,
     imageUrl: req.body.imageUrl,
@@ -61,12 +75,14 @@ const createItem = (req: MenuItem.IItemRequest) => {
 
   return newItem.save()
     .then(() => {
-      return true;       
+      return true;
     });
 }
 
 export default {
   getItems,
   getItem,
-  createItem
+  createItem,
+  deleteItem,
+  updateItem
 }

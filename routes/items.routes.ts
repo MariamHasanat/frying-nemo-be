@@ -22,6 +22,16 @@ router.get('/:id',validateItemId, async (req: MenuItem.IItemRequest, res:express
     }
 
 });
+router.delete('/:id', async (req: MenuItem.IItemRequest, res: express.Response) => {
+        const item = await itemController.deleteItem(req.params.id) as MenuItem.IItem | null;
+        res.status(200).send(item);
+
+});
+router.put('/:id', async (req: MenuItem.IItemRequest, res: express.Response) => {
+    const item = await itemController.updateItem(req.params.id, req.body) as MenuItem.IItem | null;
+    res.status(200).send(item);
+
+});
 router.post('/', validateItem, async (req: MenuItem.IItemRequest, res:express.Response) => {
     try {
         await itemController.createItem(req);
