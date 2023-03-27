@@ -44,6 +44,14 @@ const getItemById = async (id: string) => {
     return null;
 }
 
+const deleteItemById = async (id: string) => {
+    const itemDoc = await Item.findOneAndDelete({ _id: { $eq: id } });//findById(id);
+    if (itemDoc) {
+        return itemDoc;
+    }
+    return null;
+}
+
 const createItem = (body: MenuItem.IItem) => {
     const newItem = new Item({
         name: body.name,
@@ -60,5 +68,6 @@ const createItem = (body: MenuItem.IItem) => {
 export default {
     getItems,
     createItem,
-    getItemById
+    getItemById,
+    deleteItemById
 }

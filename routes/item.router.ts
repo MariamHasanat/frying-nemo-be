@@ -20,13 +20,12 @@ router.get('/:id', itemValidation.validateItemId, async (req: MenuItem.IItemRequ
     // 1. add middleware to check if id is valid (mongoose.isValidObjectId...)
     const id = req.params.id;
 
-
     const item = await itemController.getItemById(id);
     if (item) {
         res.send(item);
         return;
     }
-    else{
+    else {
         res.status(400).send('item not found');
     }
 
@@ -47,5 +46,20 @@ router.post('/', itemValidation.validateItem, (req: MenuItem.IItemRequest, res) 
             res.status(500).send(`something went wrong\n${err}`);
         })
 });
+
+/**
+ * returns a list of items
+ */
+router.delete('/:id', itemValidation.validateItemId, (req, res) => {
+    const id = req.params.id;
+    itemController.deleteItemById(id).then(
+        (item) => {
+            if (item)
+                res.send(`successfully deleted the following item\n${item}`);
+            else
+                res.send(`item does not exist`)
+        }
+    )
+})
 
 export default router;
