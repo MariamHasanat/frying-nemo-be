@@ -1,8 +1,10 @@
 import express from 'express';
+import mongoose from 'mongoose';
 
 export namespace MenuItems {
 
     export interface IItem {
+        _id: mongoose.Types.ObjectId,
         name: string,
         image: string,
         description: string,

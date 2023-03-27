@@ -2,7 +2,7 @@ import { FilterQuery } from 'mongoose';
 import { Status } from '../classes/status';
 import Item from '../models/item.model';
 import { MenuItems } from '../types/item.type';
-
+import mongoose from 'mongoose';
 
 const getItems = async (params: MenuItems.IQuery) => {
     const filter: FilterQuery<MenuItems.IItem> = {};
@@ -32,6 +32,7 @@ const getItem = async (req: MenuItems.IRequest) => {
     const item = await Item.findById(req.params.id);
     if (item) {
         const returnedItem: MenuItems.IItem = {
+            _id: item._id,
             name: item.name || '',
             price: item.price || 10,
             category: item.category || '',
