@@ -1,5 +1,5 @@
 import express from 'express'
-import { createItem, deleteItem, getItems, getSingleItem } from '../controllers/items';
+import { createItem, deleteItem, getItems, getSingleItem, updateItem } from '../controllers/items';
 import { MenuItem } from '../types/index';
 import { validateItem, validateItemId } from '../middleware/validation'
 
@@ -32,8 +32,14 @@ itemsRouter.delete('/:id', async (req, res) => {
   })
 })
 
-itemsRouter.put('/:id', async (req, res) => {
-
+itemsRouter.put('/:id' , validateItem , async (req, res) => {
+  updateItem(req.params.id , {...req.body , _id : req.params.id})
+  .then (()=> {
+    res.send('item updated.')
+  }).catch((error)=> {
+    console.log(error.message);
+    res.send('something went wrong , item not updated!')
+  })
 })
 
 // to add new item into the data base

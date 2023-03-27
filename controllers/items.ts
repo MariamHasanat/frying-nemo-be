@@ -42,5 +42,8 @@ const createItem = (item: MenuItem.IItem) => {
 const deleteItem = (id:string) => {
     return Item.deleteOne({_id: {$eq : id}})
 }
+const updateItem = async (id:string , newItem :MenuItem.IItem) => {
+    return Item.updateOne({_id: {$eq : id}} , newItem)
+}
 
-export { getItems, createItem, getSingleItem , deleteItem }
+export { getItems, createItem, getSingleItem , deleteItem , updateItem }
