@@ -45,7 +45,15 @@ const getItemById = async (id: string) => {
 }
 
 const deleteItemById = async (id: string) => {
-    const itemDoc = await Item.findOneAndDelete({ _id: { $eq: id } });//findById(id);
+    const itemDoc = await Item.findOneAndDelete({ _id: { $eq: id } });
+    if (itemDoc) {
+        return itemDoc;
+    }
+    return null;
+}
+
+const updateItem = async (id: string, newItem: MenuItem.IItem) => {
+    const itemDoc = await Item.findOneAndUpdate({ _id: { $eq: id } }, newItem);
     if (itemDoc) {
         return itemDoc;
     }
@@ -69,5 +77,6 @@ export default {
     getItems,
     createItem,
     getItemById,
-    deleteItemById
+    deleteItemById,
+    updateItem
 }

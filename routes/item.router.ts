@@ -48,7 +48,7 @@ router.post('/', itemValidation.validateItem, (req: MenuItem.IItemRequest, res) 
 });
 
 /**
- * returns a list of items
+ * Searches for item, if found: deletes it ...
  */
 router.delete('/:id', itemValidation.validateItemId, (req, res) => {
     const id = req.params.id;
@@ -56,6 +56,24 @@ router.delete('/:id', itemValidation.validateItemId, (req, res) => {
         (item) => {
             if (item)
                 res.send(`successfully deleted the following item\n${item}`);
+            else
+                res.send(`item does not exist`)
+        }
+    )
+})
+
+/**
+ * Searches for item, if found: updates it ...
+ */
+router.put('/:id', itemValidation.validateItemId, (req, res) => {
+    // check body???
+    console.log('in update route')
+    const newItem = req.body;
+    const id = req.params.id;
+    itemController.updateItem(id, newItem).then(
+        (item) => {
+            if (item)
+                res.send(`successfully updated the following item\n${item}`);
             else
                 res.send(`item does not exist`)
         }
