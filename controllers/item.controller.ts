@@ -24,7 +24,7 @@ const getItems = async (params: MenuItem.IItemQuery) => {
         ]
     }
 
-    const items = await Item.find(query);
+    const items = await Item.find(query, null, { sort: { '_id': -1 } }); // -1: desc
     return items;
 }
 
