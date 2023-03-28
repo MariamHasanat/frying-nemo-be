@@ -25,8 +25,17 @@ const getItems = async (params: MenuItem.IItemQuery) => {
     ]
   }
 
-  const items = await Item.find(query, null, { sort: { '_id': -1 } });
+  const items = await Item.find(query, null, { sort: { '_id': -1 } })
+  .populate(
+    {path:'addedBy',
+    select:'fullName'
+  });
 
+  //display *** in password
+//   const parse = items.map(item =>({
+//   ...item.toJSON(),
+//   addedBy:{...item.addedBy?.toJSON() as any ,password:'******'}
+// }))
   return items;
 };
 
@@ -39,7 +48,7 @@ const getItem = async (itemId: string) => {
       description: itemDoc.description || '',
       imageUrl: itemDoc.imageUrl || '',
       ingredients: itemDoc.ingredients,
-      price: itemDoc.price || 0
+      price: itemDoc.price || 0,
     }
 
     return item;
@@ -68,7 +77,8 @@ const createItem = (req: MenuItem.IItemRequest) => {
     imageUrl: req.body.imageUrl,
     price: req.body.price,
     ingredients: req.body.ingredients,
-    description: req.body.description
+    description: req.body.description,
+    addedBy: req.body.addedBy
   });
 
   newItem.price = req.body.price ?? 10;

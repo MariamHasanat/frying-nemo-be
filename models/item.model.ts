@@ -20,7 +20,10 @@ const ItemModel = new mongoose.Schema({
         default:[]
     },
 
-    // addedBy: Schema.Types.ObjectId
+     addedBy: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+     }
 });
 
 const Item = mongoose.model("Item", ItemModel);
