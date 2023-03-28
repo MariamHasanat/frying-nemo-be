@@ -16,7 +16,7 @@ export namespace IMenuItem
 
     
     export interface IItemQuery {
-        categories?: string;
+        category?: string;
         searchTerms?: string;
         page?: number;
         maxPrice?: number;
