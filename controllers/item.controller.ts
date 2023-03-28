@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Item , User } from "../models/index";
+import { Item, User } from "../models/index";
 import { MenuItem } from "../types/index"
 
 const getItems = async (params: MenuItem.ItemQuery) => {
@@ -33,13 +33,27 @@ const getItems = async (params: MenuItem.ItemQuery) => {
 
     console.log(query);
 
-    const items = await Item.find(query, null, { sort: { '_id': -1 } });
-
+    const items = await Item.find(query, null, { sort: { '_id': -1 } })
+        .populate({
+            path: 'addedBy',
+            select: ['fullName', 'email', 'imageUrl']
+        });
+    // If you want edit the data before sending them to client
+    // const parsedItem = items.map(itm => (
+    //   {
+    //     ...itm.toJSON(),
+    //     addedBy: { ...itm.addedBy?.toJSON() as any, password: '****' }
+    //   })
+    // )
+    // return parsedItem;
     return items;
 }
 
 const getItemById = async (itemId: string) => {
-    const itemDoc = await Item.findById(itemId);
+    const itemDoc = await Item.findById(itemId).populate({
+        path: 'addedBy',
+        select: ['fullName', 'email', 'imageUrl']
+    });
     if (itemDoc) {
         const item: MenuItem.Item = {
             name: itemDoc.name,
