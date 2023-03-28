@@ -22,6 +22,8 @@ const itemSchema = new mongoose.Schema<MenuItem.IItem>({
     },
     addedBy: {
         type: mongoose.Schema.Types.ObjectId,
+        // singular name for the model
+        ref: 'user'
     }
 }, { versionKey: false });
 
