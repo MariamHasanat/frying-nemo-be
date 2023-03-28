@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
 //     res.status(500).send();
 //   }
 // });
+
 router.post('/' ,validate, async (req : MenuItem.ItemRequest , res ) => {
 
  try{
@@ -28,5 +29,6 @@ router.post('/' ,validate, async (req : MenuItem.ItemRequest , res ) => {
     res.status(500).send("Failed to add item!");
   }
 });
+
 
 export default router
