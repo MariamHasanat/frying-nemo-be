@@ -39,6 +39,23 @@ const getItems = async (params: IMenuItem.IItemQuery) => {
     return await Item.find(query, null, { sort: { '_id': -1 } });
 }
 
+const getItem = async (itemId: string) => {
+    const itemDoc = await Item.findById(itemId);
+    if (itemDoc) {
+      const item: IMenuItem.IItem = {
+        name: itemDoc.name,
+        category: itemDoc.category,
+        description: itemDoc.description || '',
+        imageUrl: itemDoc.imageUrl || '',
+        ingredients: itemDoc.ingredients,
+        price: itemDoc.price || 0
+      }
+  
+      return item;
+    }
+    return null;
+  }
+
 const createItems = (item: IMenuItem.IItem) => {
     const newItem = new Item({
         name: item.name,
@@ -59,4 +76,4 @@ const createItems = (item: IMenuItem.IItem) => {
 
 }
 
-export default { getItems, createItems };
+export default { getItems, createItems, getItem };

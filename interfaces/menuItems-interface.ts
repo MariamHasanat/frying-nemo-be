@@ -5,7 +5,7 @@ export namespace IMenuItem
 {
 
     export interface IItem {
-        name : string ;
+        name : string | undefined ;
         price : number;
         description : string ;
         category : string ;
@@ -22,7 +22,7 @@ export namespace IMenuItem
         maxPrice?: number;
       }
 
-    export interface IItemRequest extends express.Request<{},{},IItem,IItemQuery,{}> {
+    export interface IItemRequest extends express.Request<{id : string},{},IItem,IItemQuery,{}> {
      
     }
 }
