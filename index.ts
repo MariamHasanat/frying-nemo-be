@@ -1,6 +1,6 @@
 import express, { Express, json } from 'express';
 import mongoose from 'mongoose';
-import { itemRouter } from './routes';
+import { itemRouter, userRouter } from './routes';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
@@ -23,6 +23,7 @@ database.once('connected', () => {
 database.on('error', (err) => console.error(err));
 
 app.use('/items', itemRouter);
+app.use('/users', userRouter);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: server is running at http://localhost:${port}`);

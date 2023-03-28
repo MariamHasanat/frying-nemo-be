@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { FilterQuery } from "mongoose";
-import Item from "../models/item";
+import { ItemModel } from "../models";
 import { MenuItem } from "../types/item";
 
 const getItems = async (query: MenuItem.IQuery) => {
@@ -29,15 +29,13 @@ const getItems = async (query: MenuItem.IQuery) => {
 
     }
 
-    console.log({ filteredQuery });
-
-    const result: MenuItem.IItem[] = await Item.find(filteredQuery);
+    const result: MenuItem.IItem[] = await ItemModel.find(filteredQuery);
     return result;
 }
 
 const createItem = (req: MenuItem.IItemRequest, res: Response) => {
 
-    const item = new Item({
+    const item = new ItemModel({
         name: req.body.name,
         description: req.body.description,
         category: req.body.category,

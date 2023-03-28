@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import Item from "../models/item.js";
 import { MenuItem } from "../types/item.js";
-import itemController from '../controllers/item';
+import {itemController} from '../controllers';
 
 const router = Router();
 
