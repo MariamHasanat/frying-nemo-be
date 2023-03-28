@@ -2,7 +2,7 @@ import express from "express";
 import { MenuItem } from "../types/index.js";
 import Itemcontroller from "../controoler/item.controller.js"
 import itemController from "../controoler/item.controller.js";
-import { validItem } from "../middleware/item_validation.js";
+import { validItem, validItemId } from "../middleware/item_validation.js";
 
 
 
@@ -20,9 +20,31 @@ itemsRouter.get('/', async (req: MenuItem.IItemRequest, res) => {
 
 })
 
-itemsRouter.get('/:id',validItem, async (req: MenuItem.IItemRequest, res : express.Response<MenuItem.Item|null>) => {
+itemsRouter.get('/:id',validItemId, async (req: MenuItem.IItemRequest, res : express.Response<MenuItem.Item|null>) => {
     try {
         const item = await Itemcontroller.getItemById(req.params.id);
+        res.status(200).send(item);
+    }
+    catch(err) {
+        res.status(500).send()
+    }
+
+})
+
+itemsRouter.delete('/:id',validItemId, async (req: MenuItem.IItemRequest, res: express.Response) => {
+    try {
+        const items = await Itemcontroller.DeleteById(req.params.id);
+        res.status(200).send(items);
+    }
+    catch(err) {
+        res.status(500).send()
+    }
+
+})
+
+itemsRouter.put('/:id',validItemId, async (req: MenuItem.IItemRequest, res : express.Response<MenuItem.Item|null>) => {
+    try {
+        const item = await Itemcontroller.updateItemById(req);
         res.status(200).send(item);
     }
     catch(err) {

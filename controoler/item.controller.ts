@@ -66,8 +66,33 @@ const getItemById = async (itemId: string) => {
     }
     return null;
 }
+const DeleteById = async (itemId: string) => {
+        const deletedItem = await Item.findByIdAndDelete(itemId);
+        if (deletedItem) {     
+        const remainingItems = await Item.find(); // retrieve all remaining items
+        return remainingItems;
+        }
+        return null;
+}
+const updateItemById = async (req: MenuItem.IItemRequest) => {
+    const itemDoc = await Item.findById(req.params.id);//or we can use findOne
+    if (itemDoc) {
+        const item: MenuItem.Item = {
+            name: itemDoc.name||req.body.name,
+            category: itemDoc.category ||req.body.category ,
+            description: itemDoc.description || req.body.description,
+            imageUrl: itemDoc.imageUrl || req.body.imageUrl,
+            ingredient: itemDoc.ingredient||req.body.ingredient,
+            price: itemDoc.price || req.body.price
+        }
+        return item;
+    }
+    return null;
+}
 export default {
     getItem,
     getItemById,
+    DeleteById,
+    updateItemById,
     creatItem
 }
