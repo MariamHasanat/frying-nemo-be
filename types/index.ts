@@ -8,6 +8,7 @@ export namespace MenuItem{
   price: number;
   category: string;
   ingredients: string[];
+  addedBy?:String
  };
 
 
@@ -19,7 +20,7 @@ export interface IItemQuery {
 }
 export interface IItemRequest extends express.Request<{id:string},{},MenuItem.IItem,IItemQuery,{}> {}
 }
-export namespace User {
+export namespace UserNS {
   export interface IUser {
     email: string;
     password: string;
@@ -28,4 +29,6 @@ export namespace User {
     imageUrl: string;
     authToken: string;
   }
+  export interface IUserRequest extends express.Request<{},{},UserNS.IUser,{}> {}
+
 }
