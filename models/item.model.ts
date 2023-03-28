@@ -20,8 +20,14 @@ const ItemSchema = new mongoose.Schema({
     default: []
   },
   // addedBy: Schema.Types.ObjectId
+  addedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    // type: 'ObjectId',
+    ref: 'User'
+  }
+
 });
 
-const Item =  mongoose.model("Item", ItemSchema);
+const Item = mongoose.model("Item", ItemSchema);
 
 export default Item;

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Item } from "../models/index";
+import { Item , User } from "../models/index";
 import { MenuItem } from "../types/index"
 
 const getItems = async (params: MenuItem.ItemQuery) => {
@@ -61,7 +61,8 @@ const createItem = (req: MenuItem.ItemRequest) => {
         imageUrl: req.body.imageUrl,
         ingredients: req.body.ingredients,
         description: req.body.description,
-        price: req.body.price ?? 10
+        price: req.body.price ?? 10,
+        addedBy: req.body.addedBy
     });
 
     // newItem.price = req.body.price ?? 10;
@@ -70,8 +71,10 @@ const createItem = (req: MenuItem.ItemRequest) => {
     //   newItem.price = 10;
     // }
     return newItem.save()
-        .then(() => {
-            return true;
+        .then(async () => {
+            // To store what items each user created!
+            await User.findByIdAndUpdate(req.body.addedBy, { $push: { items: newItem._id } })
+            return true; // created successfully     
         });
 }
 export default {
