@@ -43,5 +43,9 @@ export namespace UserNS {
         authToken: string;
     }
     // with generic types
-  export interface UserRequest extends express.Request<{}, {}, UserNS.IUser, {}> { }
+    export interface UserRequest extends express.Request<{}, {}, UserNS.IUser, {}> { }
+    export interface LoginRequest extends express.Request<{}, {}, {
+        email: string,
+        password: string
+    }, {}> { }
 }

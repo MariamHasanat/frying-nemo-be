@@ -9,7 +9,14 @@ const createUser = (req: UserNS.UserRequest) => {
             return true;
         });
 }
+const login = async (req: UserNS.LoginRequest) => {
+    return await User.findOne({
+        email: req.body.email,
+        password: req.body.password
+    }).select(['email', 'fullName', 'imageUrl', 'role']);
+}
 
 export default {
-    createUser
+    createUser,
+    login
 }
