@@ -8,7 +8,8 @@ export namespace User {
         fullName: String,
         imageUrl: String,
         authToken: String,
+        items: String,
     }
-    
+
     export interface UserRequest extends express.Request<{}, {}, IUser, {}> { }
 }

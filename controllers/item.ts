@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { FilterQuery } from "mongoose";
 import { ItemModel } from "../models";
+import User from "../models/user";
 import { MenuItem } from "../types/item";
 
 const getItems = async (query: MenuItem.IQuery) => {
@@ -29,7 +30,12 @@ const getItems = async (query: MenuItem.IQuery) => {
 
     }
 
-    const result: MenuItem.IItem[] = await ItemModel.find(filteredQuery);
+    const result = await ItemModel.find(filteredQuery, null, { sort: { "_id": -1 } })
+        .populate({
+            path: 'addedBy',
+            select: ['fullName']
+        });
+    console.log({ result });
     return result;
 }
 
@@ -42,17 +48,13 @@ const createItem = (req: MenuItem.IItemRequest, res: Response) => {
         price: req.body.price,
         imageUrl: req.body.imageUrl,
         ingredients: req.body.ingredients,
+        addedBy: req.body.addedBy,
     });
 
-    // item.validate()
-    //     .then(() => {
-    item.save();
-    //     res.status(200).send('Item added successfully');
-    // })
-    // .catch((err) => {
-    //     res.status(500).send(err.message);
-    //     console.log(err.message);
-    // });
+    item.save()
+        .then(async () => {
+            await User.findByIdAndUpdate(req.body.addedBy, { $push: { items: item._id } });
+        });
 }
 
 const updateItem = () => {

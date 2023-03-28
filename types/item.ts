@@ -9,6 +9,7 @@ export namespace MenuItem {
         price: number;
         category: string[];
         ingredients: String[];
+        addedBy: String;
     }
 
     export interface IItemRequest extends express.Request<{}, {}, IItem, IQuery> { }

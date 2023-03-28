@@ -8,6 +8,9 @@ const userSchema = new mongoose.Schema<User.IUser>({
   fullName: { type: String },
   imageUrl: { type: String },
   authToken: { type: String },
+  items: {
+    type: [mongoose.Schema.Types.ObjectId],
+  }
 }, { versionKey: false });
 
 const User = mongoose.model('user', userSchema);

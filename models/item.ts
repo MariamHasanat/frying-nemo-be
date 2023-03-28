@@ -20,6 +20,9 @@ const itemSchema = new mongoose.Schema<MenuItem.IItem>({
     ingredients: {
         type: [String]
     },
+    addedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+    }
 }, { versionKey: false });
 
 const Item = mongoose.model('item', itemSchema);
