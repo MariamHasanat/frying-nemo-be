@@ -1,6 +1,6 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, Request, Response, Router } from 'express';
 import cors from 'cors';
-
+import userRouter from './routes/users.router.js';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { Item } from './models/index.js';
@@ -13,6 +13,7 @@ const port = process.env.PORT || 3001;
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json())
 app.use('/items' , itemsRouter)
+app.use('/users' , userRouter)
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');

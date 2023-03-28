@@ -27,7 +27,7 @@ export namespace MenuItem {// متل خزانة اواعي فيو اكتر من 
     // }
 }
 
-export namespace User {
+export namespace UserNS {
   export interface IUser {
     email: string;
     password: string;
@@ -36,11 +36,15 @@ export namespace User {
     imageUrl: string;
     authToken: string;
   }
+   //with geniric type 
+   export interface UserRequest extends express.Request<{},{},UserNS.IUser,{}>{}
+
+
 }
 
   //for geniric type for js 
    interface IObj<T>{
-   vlaue :T ,
+   vlaue :T,
    history:T[]
    }
  const x :  IObj<number>={
