@@ -1,4 +1,5 @@
 import express from 'express'
+import mongoose from 'mongoose';
 
 export namespace MenuItem {
     export interface IItem {
@@ -7,7 +8,8 @@ export namespace MenuItem {
         description: string,
         price: number,
         category: string,
-        ingredients: string[]
+        ingredients: string[],
+        addedBy?: string
     }
 
     export interface IQuery {
@@ -22,6 +24,18 @@ export namespace MenuItem {
     // }
 
     // to set the type of request body to (IItem) , and the request query string to (IQuery) 
-    export interface IRequest extends express.Request<{id:string}, {}, IItem, IQuery , {}> { }
+    export interface IRequest extends express.Request<{ id: string }, {}, IItem, IQuery, {}> { }
 
+}
+export namespace UserNS {
+    export interface IUser {
+        email: string,
+        password: string,
+        fullName: string,
+        imageUrl: string,
+        role: string,
+        authToken: string
+    }
+
+    export interface IUserRequest extends express.Request<{}, {}, IUser, {}> { }
 }

@@ -1,25 +1,28 @@
 import mongoose from "mongoose";
 
 const mongooseSchema = new mongoose.Schema({
-    name: {
+    email: {
         type: String,
         required: true,
         unique: true
     },
-    imageUrl: String,
-    description: String,
-    price: {
-        type: Number
+    password: {
+        type: String,
+        required: true,
     },
-    ingredients: {
-        type: [String],
-        default: []
+    fullName: {
+        type: String,
+        required: true,
     },
-    category: String,
-    addedBy: mongoose.Schema.Types.ObjectId
+    imageUrl: String ,
+    authToken : String ,
+    role : {
+        type : String ,
+        default : 'user'
+    }
 })
 
 // this line initialze the collection in the database if it's not exists 
 //it also returns an object for this table which helps to deal with this collection in the code
-const Item = mongoose.model('Items', mongooseSchema);  
-export default Item;
+const User = mongoose.model('Users', mongooseSchema);  
+export default User;
