@@ -23,7 +23,10 @@ const itemSchema = new Schema({
         type: [String],
         default: [],
     },
-    addedBy: Schema.Types.ObjectId
+    addedBy: {
+        type: Schema.Types.ObjectId,
+        ref: `User`
+    }
 })
 
 

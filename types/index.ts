@@ -21,7 +21,7 @@ export namespace IItem {
         ingredients?: string,
     }
 
-    export interface Request extends express.Request<{}, {}, Item, {}> { }
+    export interface Request extends express.Request<{ id: string }, {}, Item, {}> { }
 }
 
 export namespace IUser {
@@ -31,8 +31,7 @@ export namespace IUser {
         password: String,
         role: String,
         fullName: Number,
-        imageUrl: String,
-        authToken: String
+        imageURL: String,
     }
 
 

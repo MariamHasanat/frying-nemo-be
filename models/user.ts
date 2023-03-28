@@ -18,13 +18,8 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    imageUrl: {
+    imageURL: {
         type: String
-    },
-    authToken: {
-        type: String,
-        required: true,
-        unique: true,
     },
 })
 

@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get(`/`, async (req: IItem.Request, res: Response) => {
     const filter: IItem.Query = req.query;
-    
+
     try {
         const filteredItems = await itemController.getItems(filter);
 
@@ -19,19 +19,37 @@ router.get(`/`, async (req: IItem.Request, res: Response) => {
     }
 })
 
+router.get(`/:id`, async (req: IItem.Request, res: Response) => {
+    const id = req.params.id;
+
+    try {
+        const filteredItems = await itemController.getItem(id);
+
+        res.status(200).json(filteredItems);
+    } catch (err: any) {
+        res.status(400).send(err?.message);
+    }
+})
+
 router.post(`/`, itemValidate, async (req: IItem.Request, res: Response) => {
     const item = req.body;
+    console.log(item)
     try {
+        console.log(`r1`)
         const newItem = await itemController.addItem(item);
+        console.log(`r2`)
         res.sendStatus(200);
     } catch (err: any) {
         if (err.name == `ValidationError`) {
             if (err.errors.imageURL) {
+                console.log(`err1`)
                 res.status(400).send("Invalid image URL. Please provide a URL that starts with 'https://'.");
             } else {
+                console.log(`err2: `, err);
                 res.status(400).send("Error while validating one of your inputs");
             }
         } else {
+            console.log(`err3`)
             res.status(400).send(`An error occurred while connecting to the database`);
         }
     }

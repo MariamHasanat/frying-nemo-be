@@ -3,7 +3,6 @@ import Item from "../models/item.js";
 import { IItem } from "../types/index.js";
 
 const getItems = async (params: IItem.Query) => {
-    console.log(`params: `, params.category);
     const { category, searchTerm, page, maxPrice, ingredients } = params;
 
     const query: mongoose.FilterQuery<IItem.Item> = {};
@@ -36,6 +35,10 @@ const getItems = async (params: IItem.Query) => {
     return await Item.find(query);
 }
 
+const getItem = async (id: string) => {
+    return (await Item.find({ _id: id }))[0];
+}
+
 const addItem = async (item: IItem.Item) => {
     const newItem = new Item(item);
     await newItem.save()
@@ -45,4 +48,4 @@ const deleteItem = async (filter: IItem.Query) => {
     return await Item.findOneAndDelete(filter);
 }
 
-export default { getItems, addItem, deleteItem }
+export default { getItems, getItem, addItem, deleteItem }
