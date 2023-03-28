@@ -31,8 +31,15 @@ export namespace MenuItem {
 
 export namespace User {
     export interface IUser {
-        //
+        email: string,
+        password: string,
+        role: string,
+        fullName: string,
+        imageURL: string,
+        authToken: string
     }
+
+    export interface IUserRequest extends express.Request<{}, {}, IUser, {}> { }
 }
 
 /**
