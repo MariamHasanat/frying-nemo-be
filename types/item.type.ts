@@ -36,4 +36,7 @@ export namespace Users {
         imageUrl: string;
         authToken: string;
     }
+    export interface IRequest extends express.Request<{}, {}, User> {
+
+    }
 }
