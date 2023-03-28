@@ -13,30 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const User_js_1 = __importDefault(require("../models/User.js"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const user_controller_js_1 = __importDefault(require("../controllers/user.controller.js"));
 const routes = express_1.default.Router();
 routes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User_js_1.default.find();
+    const user = yield user_controller_js_1.default.CreateUser(req);
     res.status(200).send(user);
 }));
 routes.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const body = req.body;
-    const token = jsonwebtoken_1.default.sign(body, body.password);
-    body.authToken = token.toString();
-    console.log(body.authToken);
-    const NewUser = new User_js_1.default({
-        password: body.password,
-        email: body.email,
-        fullName: body.fullName,
-        role: body.role,
-        imageUrl: body.imageUrl || "image not add yet",
-        USERtoken: body.authToken || "no token"
-    }).save()
-        .then(() => {
-        res.status(201).send("new User created successful");
-    }).catch(() => {
-        res.status(400).send("Failed to create User");
-    });
 }));
 exports.default = routes;

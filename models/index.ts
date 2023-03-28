@@ -1,1 +1,2 @@
-export {default as Item} from "./items.js"
+export { default as Item } from "./items"
+export { default as User } from "./User"

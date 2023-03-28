@@ -26,7 +26,7 @@ const getItems = (param) => __awaiter(void 0, void 0, void 0, function* () {
             { name: qReg }, { description: qReg }, { category: qReg }, { ingredients: qReg }
         ];
     }
-    const Items = yield items_1.default.find(query, null, { sort: { "price": 1 } });
+    const Items = yield items_1.default.find(query, null, { sort: { "price": 1 } }).populate("addedBy");
     return Items;
 });
 const getItemByID = (idItem) => {

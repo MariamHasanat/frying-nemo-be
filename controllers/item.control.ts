@@ -19,7 +19,7 @@ const getItems = async (param: MenuItem.IItemQuery) => {
         ]
     }
 
-    const Items = await Item.find(query, null, { sort: { "price": 1 } })
+    const Items = await Item.find(query, null, { sort: { "price": 1 } }).populate("addedBy")
     return Items
 
 }

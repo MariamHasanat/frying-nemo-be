@@ -26,7 +26,6 @@ export namespace MenuItem {
 }
 export namespace UsersInfo {
     export interface IUser {
-        id: number;
         email: string;
         password: string;
         role: string[];
@@ -35,7 +34,7 @@ export namespace UsersInfo {
         authToken: string;
 
     }
-    export interface UserRequest extends express.Request<{},{},{},{}> {
+    export interface UserRequest extends express.Request<{},{},UsersInfo.IUser,{}> {
         body: IUser
     }
 }
