@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
 import { User } from "../models/index";
 import { UserNS } from "../types/index";
+
 
 const createUser = (req: UserNS.IUserRequest) => {
   const newUser = new User({

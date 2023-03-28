@@ -15,6 +15,11 @@ const ItemSchema = new mongoose.Schema({
     required: true,
   },
   ingredients: [String],
+  addedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+
+    ref: "User"
+  }
   // addedBy: Schema.Types.ObjectId
 });
 const Item = mongoose.model("Item", ItemSchema);

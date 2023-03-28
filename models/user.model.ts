@@ -20,6 +20,9 @@ const UserSchema = new mongoose.Schema({
     },
     imageUrl: String,
     authToken: String,
+    items: {
+        type: [mongoose.Schema.Types.ObjectId]
+    }
 });
 const User = mongoose.model("User", UserSchema);
 export default User;

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Item } from "../models/index";
+import { Item, User } from "../models/index";
 import { MenuItem } from "../types/index";
 
 const getItems = async (params: MenuItem.IItemQuery) => {
@@ -25,13 +25,19 @@ const getItems = async (params: MenuItem.IItemQuery) => {
     ];
   }
 
-  const items = await Item.find(query);
+  const items = await Item.find(query, null, {sort:{ '_id': -1}}).populate({
+    path: "addedBy",
+    select: ['fullName','email','imageUrl'],
+  });
 
   return items;
 };
 
 const getItem = async (id: string) => {
-  const item = await Item.findById(id);
+  const item = await Item.findById(id).populate({
+    path: "addedBy",
+    select: ['fullName','email','imageUrl'],
+  });
   return item;
 };
 
@@ -42,11 +48,13 @@ const createItem = (req: MenuItem.IItemRequest) => {
     ingredients: req.body.ingredients,
     description: req.body.description,
     imageUrl: req.body.imageUrl,
+    addedBy: req.body.addedBy
   });
 
   newItem.price = req.body.price || 10;
 
-  return newItem.save().then(() => {
+  return newItem.save().then(async () => {
+    await User.findByIdAndUpdate(req.body.addedBy, { $push: { items: newItem._id } })
     return true; // created successfully
   });
 };
