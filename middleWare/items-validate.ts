@@ -12,14 +12,14 @@ const validate = (req : MenuItem.ItemRequest, res : express.Response, next : exp
       next();
 }
 
-export const validateItemId = (req: MenuItem.ItemRequest, res: express.Response, next: express.NextFunction) => {
-  if (!req.params.id) {
-    return res.status(400).send("ID is required!");
-  }
+// export const validateItemId = (req: MenuItem.ItemRequest, res: express.Response, next: express.NextFunction) => {
+//   if (!req.params.id) {
+//     return res.status(400).send("ID is required!");
+//   }
 
-  if (!mongoose.isValidObjectId(req.params.id)) {
-    return res.status(400).send("ID is Not Valid!");
-  }
-  next();
-}
+//   if (!mongoose.isValidObjectId(req.params.id)) {
+//     return res.status(400).send("ID is Not Valid!");
+//   }
+//   next();
+// }
 export default validate;
