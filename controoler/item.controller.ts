@@ -29,7 +29,21 @@ const getItem = async (params: MenuItem.ItemQuery) => {
     console.log(JSON.stringify(query));
 
 
-    const items = await Item.find(query, null, { sort: { '_id': -1 } });//return all items as a json if just () else no return specific and sort it dec
+    const items = await Item.find(query, null, { sort: { '_id': -1 } })//return all items as a json if just () else no return specific and sort it dec
+    .populate({
+        path: 'addedBy',
+        select: ['fullName', 'email', 'imageUrl']
+      });
+  
+    // If you want edit the data before sending them to client
+    // const parsedItem = items.map(itm => (
+    //   {
+    //     ...itm.toJSON(),
+    //     addedBy: { ...itm.addedBy?.toJSON() as any, password: '****' }
+    //   })
+    // )
+    // return parsedItem;
+   
     return (items);
 }
 
@@ -56,7 +70,11 @@ const creatItem = (req: MenuItem.IItemRequest) => {
 }
 
 const getItemById = async (itemId: string) => {
-    const itemDoc = await Item.findById(itemId);//or we can use findOne
+    const itemDoc = await Item.findById(itemId).populate({ //or we can use findOne  
+    path: 'addedBy',
+    select: ['fullName', 'email', 'imageUrl']
+
+    }) 
     if (itemDoc) {
         const item: MenuItem.Item = {
             name: itemDoc.name,
