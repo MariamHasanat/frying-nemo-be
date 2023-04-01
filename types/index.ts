@@ -39,7 +39,10 @@ export namespace UserNS {
   }
    //with geniric type 
    export interface UserRequest extends express.Request<{},{},UserNS.IUser,{}>{}
-
+   export interface LoginRequest extends express.Request<{}, {}, {
+    email: string,
+    password: string
+  }, {}>{}
 
 }
 
