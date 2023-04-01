@@ -1,4 +1,4 @@
-import  mongoose  from "mongoose";
+import  mongoose, { mongo }  from "mongoose";
 const mongooSchema = new mongoose.Schema({
  name: {
     type:String, 
@@ -16,7 +16,11 @@ const mongooSchema = new mongoose.Schema({
     type:[String],
     default:[]
  },
- category:String
+ category:String,
+ addedBy:{
+   type:mongoose.Schema.Types.ObjectId,
+   //type:'ObjectId'
+   ref : 'User' }
 })
 const Item = mongoose.model('Item',mongooSchema);//برجع اوبجيكت  فيو التابل او بنشا واحد تانب 
 export default Item;

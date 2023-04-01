@@ -19,7 +19,11 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
   imageUrl: String,
-  authToken: String
+  authToken: String,
+  //in case you want to store whate items each user added
+  items:{
+    type:[mongoose.Schema.Types.ObjectId]
+  }
 });
 
 const User = mongoose.model("User", UserSchema);

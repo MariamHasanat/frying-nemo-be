@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { json } from "stream/consumers";
 import Item from "../models/items.moddel.js";
 import { MenuItem } from "../types/index.js";
+import User from "../models/user.model.js";
 
 const getItem = async (params: MenuItem.ItemQuery) => {
     const query: mongoose.FilterQuery<MenuItem.Item> = {};
@@ -41,11 +41,15 @@ const creatItem = (req: MenuItem.IItemRequest) => {
         category: req.body.category,
         ingredient: req.body.ingredient,
         description: req.body.description,
-        imageUrl: req.body.imageUrl
+        imageUrl: req.body.imageUrl,
+        addedBy :req.body.addedBy
 
     })
     return newItem.save()//strore in data base 
-        .then(() => {
+        .then(async() => {
+          //to store what items each user created
+          await User.findByIdAndUpdate(req.body.addedBy,{$push:{items:newItem._id}})
+
             return true;//created  successfuly
         })
 
