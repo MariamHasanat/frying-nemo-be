@@ -9,7 +9,7 @@ export namespace MenuItem {// متل خزانة اواعي فيو اكتر من 
         price: number,
         category: string,
         ingredient: string[],
-        addedBy?:string
+        addedBy?:any
     }
     export interface ItemQuery {
         categories?: string;

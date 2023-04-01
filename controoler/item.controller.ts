@@ -70,7 +70,8 @@ const creatItem = (req: MenuItem.IItemRequest) => {
 }
 
 const getItemById = async (itemId: string) => {
-    const itemDoc = await Item.findById(itemId).populate({ //or we can use findOne  
+    const itemDoc = await Item.findById(itemId) //or we can use findOne
+    .populate({  
     path: 'addedBy',
     select: ['fullName', 'email', 'imageUrl']
 
@@ -82,7 +83,8 @@ const getItemById = async (itemId: string) => {
             description: itemDoc.description || '',
             imageUrl: itemDoc.imageUrl || '',
             ingredient: itemDoc.ingredient,
-            price: itemDoc.price || 0
+            price: itemDoc.price || 0,
+            addedBy:itemDoc.addedBy
         }
         return item;
     }
