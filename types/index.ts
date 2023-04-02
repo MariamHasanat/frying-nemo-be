@@ -34,7 +34,8 @@ export namespace UserNS {
         fullName: string,
         imageUrl: string,
         role: string,
-        authToken: string
+        authToken: string,
+        items: string[]
     }
 
     export interface IUserRequest extends express.Request<{}, {}, IUser, {}> { }

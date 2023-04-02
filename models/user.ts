@@ -14,15 +14,19 @@ const mongooseSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    imageUrl: String ,
-    authToken : String ,
-    role : {
-        type : String ,
-        default : 'user'
+    imageUrl: String,
+    authToken: String,
+    role: {
+        type: String,
+        default: 'user'
+    },
+    items: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Items'
     }
 })
 
 // this line initialze the collection in the database if it's not exists 
 //it also returns an object for this table which helps to deal with this collection in the code
-const User = mongoose.model('Users', mongooseSchema);  
+const User = mongoose.model('Users', mongooseSchema);
 export default User;

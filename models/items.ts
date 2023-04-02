@@ -16,7 +16,10 @@ const mongooseSchema = new mongoose.Schema({
         default: []
     },
     category: String,
-    addedBy: mongoose.Schema.Types.ObjectId
+    addedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
+    }
 })
 
 // this line initialze the collection in the database if it's not exists 
