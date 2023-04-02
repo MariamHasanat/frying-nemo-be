@@ -8,4 +8,11 @@ const createUser = (user: UserNS.IUser) => {
     return newUser.save();
 }
 
-export { createUser }
+const login = async (req: UserNS.IUserRequest) => {
+    return await User.findOne({
+        email: req.body.email,
+        password: req.body.password
+    }).select(['fullName', 'email', 'imageUrl', 'role']);
+}
+
+export { createUser, login }
