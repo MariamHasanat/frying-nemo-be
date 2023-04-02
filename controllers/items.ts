@@ -24,7 +24,7 @@ const getItems = async (params: MenuItem.IQuery) => {
     return await Item.find(query, null, { sort: { _id: -1 } })
         .populate({
             path: 'addedBy',
-            select: ['fullName', 'email']
+            select: ['fullName', 'email' , 'imageUrl']
         });
     //it returns the items as array of js objects sorted descending by id
 }
@@ -33,7 +33,7 @@ const getSingleItem = async (id: string) => {
     return await Item.findById(id)
         .populate({
             path: 'addedBy',
-            select: ['email', 'username', 'imageUrl']
+            select: ['email' , 'fullName' , 'imageUrl']
         });
 }
 
