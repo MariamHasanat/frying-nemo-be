@@ -18,7 +18,12 @@ const itemSchema = new mongoose.Schema({
     ingredients: {
         type: [String],
         default: [],
-    }
+    },
+    addedBy:
+    {
+        ref: 'User',
+        type: mongoose.Schema.Types.ObjectId
+    },
 });
 
 const Item = mongoose.model('Item', itemSchema);

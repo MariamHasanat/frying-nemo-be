@@ -11,6 +11,7 @@ export namespace MenuItemsNS {
         price: Number,
         category: string,
         ingredients: string[];
+        addedBy?: any;
     }
 
     export interface IQuery {
@@ -35,6 +36,7 @@ export namespace UsersNS {
         fullName: string;
         imageUrl: string;
         authToken: string;
+        items: [mongoose.Schema.Types.ObjectId];
     }
     export interface IRequest extends express.Request<{}, {}, User> {
 
