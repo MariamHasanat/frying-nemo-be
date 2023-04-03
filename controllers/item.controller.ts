@@ -98,10 +98,14 @@ const deleteItem = (id: string) => {
     return Item.deleteOne({ _id: { $eq: id } })
 };
 
+const updateItem = async (id: string, newItem:MenuItem.ItemRequest) => {
+    return Item.updateOne({ _id: { $eq: id } }, newItem)
+};
 
 export default {
     getItems,
     getItemById,
     createItem,
-    deleteItem
+    deleteItem,
+    updateItem
 }

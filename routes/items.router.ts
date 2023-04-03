@@ -37,7 +37,7 @@ router.post('/', validateItem, async (req: MenuItem.ItemRequest, res: express.Re
 
 });
 
-router.delete('/:id', async (req: MenuItem.ItemRequest, res: express.Response) => {
+router.delete('/:id', validateItemId, async (req: MenuItem.ItemRequest, res: express.Response) => {
 
   try {
     await itemController.deleteItem(req.params.id);
@@ -46,6 +46,19 @@ router.delete('/:id', async (req: MenuItem.ItemRequest, res: express.Response) =
   }
   catch (err) {
     res.status(500).send("something went wrong, Item not deleted 💔");
+  }
+
+});
+
+router.put('/:id', validateItemId, async (req: MenuItem.ItemRequest, res: express.Response) => {
+
+  try {
+    await itemController.updateItem(req.params.id, { ...req.body, _id: req.params.id });
+    res.send("Item successfully !");
+  }
+
+  catch (err) {
+    res.status(500).send("something went wrong , item not updated 🥺");
   }
 
 });
