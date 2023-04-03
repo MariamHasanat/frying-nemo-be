@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-export namespace MenuItems {
+export namespace MenuItemsNS {
 
     export interface IItem {
         _id: mongoose.Types.ObjectId,
@@ -27,7 +27,7 @@ export namespace MenuItems {
     }
 }
 
-export namespace Users {
+export namespace UsersNS {
     export interface User {
         email: string;
         password: string;

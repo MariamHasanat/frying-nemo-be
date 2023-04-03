@@ -1,11 +1,11 @@
 import express, { Router } from 'express';
-import { LoginNS, Users } from '../types/item.type';
+import { LoginNS, UsersNS } from '../types/item.type';
 import UserController from '../controllers/user.controller';
 import { Status } from '../classes/status';
 
 const router = Router();
 
-router.post('/', async (req: Users.IRequest, res: express.Response) => {
+router.post('/', async (req: UsersNS.IRequest, res: express.Response) => {
     try {
         const created = await UserController.createUser(req);
         res.status(created.status).send(created);
@@ -16,7 +16,7 @@ router.post('/', async (req: Users.IRequest, res: express.Response) => {
     };
 });
 
-router.get('/', async (req: Users.IRequest, res: express.Response) => {
+router.get('/', async (req: UsersNS.IRequest, res: express.Response) => {
     try {
         const users = await UserController.getUsers();
         res.status(users.status).send(users);

@@ -1,11 +1,11 @@
 import { FilterQuery } from 'mongoose';
 import { Status } from '../classes/status';
 import Item from '../models/item.model';
-import { MenuItems } from '../types/item.type';
+import { MenuItemsNS } from '../types/item.type';
 import mongoose from 'mongoose';
 
-const getItems = async (params: MenuItems.IQuery) => {
-    const filter: FilterQuery<MenuItems.IItem> = {};
+const getItems = async (params: MenuItemsNS.IQuery) => {
+    const filter: FilterQuery<MenuItemsNS.IItem> = {};
 
     if (params.maxPrice !== undefined) {
         filter.price = { $lte: params.maxPrice };
@@ -28,10 +28,10 @@ const getItems = async (params: MenuItems.IQuery) => {
     return items;
 };
 
-const getItem = async (req: MenuItems.IRequest) => {
+const getItem = async (req: MenuItemsNS.IRequest) => {
     const item = await Item.findById(req.params.id);
     if (item) {
-        const returnedItem: MenuItems.IItem = {
+        const returnedItem: MenuItemsNS.IItem = {
             _id: item._id,
             name: item.name || '',
             price: item.price || 10,
@@ -45,7 +45,7 @@ const getItem = async (req: MenuItems.IRequest) => {
     return new Status(400, 'Failed');
 };
 
-const createItem = (req: MenuItems.IRequest) => {
+const createItem = (req: MenuItemsNS.IRequest) => {
     console.log(req.body.price);
 
     const newItem = new Item({

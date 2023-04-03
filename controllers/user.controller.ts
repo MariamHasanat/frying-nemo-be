@@ -1,14 +1,14 @@
 import User from '../models/user.model';
-import { LoginNS, Users } from '../types/item.type';
+import { LoginNS, UsersNS } from '../types/item.type';
 import mongoose from 'mongoose';
 import { Status } from '../classes/status';
 
-const createUser = async (req: Users.IRequest) => {
+const createUser = async (req: UsersNS.IRequest) => {
     const user = req.body;
     const newUser = new User({
         ...user
     });
-    return await newUser.save()
+    return newUser.save()
         .then(value => {
             return new Status(201, 'OK, the user is added successfully', value);
         })

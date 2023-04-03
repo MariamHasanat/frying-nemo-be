@@ -1,9 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { Status } from '../classes/status';
-import { MenuItems } from '../types/item.type';
+import { MenuItemsNS } from '../types/item.type';
 
-const itemValidation = (req: MenuItems.IRequest, res: express.Response, next: express.NextFunction) => {
+const itemValidation = (req: MenuItemsNS.IRequest, res: express.Response, next: express.NextFunction) => {
     if (!req.body.name || !req.body.category) {
         res.status(400).send(new Status(400, 'Name and Category are required'));
         return;
@@ -16,7 +16,7 @@ const itemValidation = (req: MenuItems.IRequest, res: express.Response, next: ex
     next();
 };
 
-const itemIdValidation = (req: MenuItems.IRequest, res: express.Response, next: express.NextFunction) => {
+const itemIdValidation = (req: MenuItemsNS.IRequest, res: express.Response, next: express.NextFunction) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
         res.status(400).send(new Status(400, 'Invalid ID'));
         return;
