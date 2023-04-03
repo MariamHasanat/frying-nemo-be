@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import mongoose, { MongooseError } from 'mongoose';
-import { itemsRouter } from './routers/index';
+import { itemsRouter, usersRouter } from './routers/index';
 import { logger } from './middleware/index';
 import cors from 'cors';
 
@@ -16,6 +16,7 @@ app.use(logger);
 
 
 app.use('/items', itemsRouter);
+app.use('/users', usersRouter);
 
 
 app.listen(port, () => {

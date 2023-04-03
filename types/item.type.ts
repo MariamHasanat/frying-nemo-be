@@ -40,3 +40,13 @@ export namespace Users {
 
     }
 }
+
+export namespace LoginNS {
+    export interface login {
+        email: String;
+        password: String;
+    }
+    export interface Request extends express.Request<{}, {}, login> {
+
+    }
+}
