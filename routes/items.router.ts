@@ -1,7 +1,7 @@
 import express from 'express';
 import { MenuItem } from '../types/index';
 import itemController from '../controllers/item.controller';
-import { validateItem  , validateItemId} from '../middlewares/item-validation';
+import { validateItem, validateItemId } from '../middlewares/item-validation';
 
 
 const router = express.Router();
@@ -33,6 +33,19 @@ router.post('/', validateItem, async (req: MenuItem.ItemRequest, res: express.Re
   }
   catch (err) {
     res.status(500).send("Failed to add item!");
+  }
+
+});
+
+router.delete('/:id', async (req: MenuItem.ItemRequest, res: express.Response) => {
+
+  try {
+    await itemController.deleteItem(req.params.id);
+
+    res.send('Item deleted successfully !');
+  }
+  catch (err) {
+    res.status(500).send("something went wrong, Item not deleted 💔");
   }
 
 });

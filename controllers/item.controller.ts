@@ -93,8 +93,15 @@ const createItem = (req: MenuItem.ItemRequest) => {
             return true; // created successfully     
         });
 }
+
+const deleteItem = (id: string) => {
+    return Item.deleteOne({ _id: { $eq: id } })
+};
+
+
 export default {
     getItems,
     getItemById,
-    createItem
+    createItem,
+    deleteItem
 }
