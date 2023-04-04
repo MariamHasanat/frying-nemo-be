@@ -2,6 +2,7 @@ import express from "express";
 
 export namespace MenuItem {
     export interface Item {
+        _id?: string;
         name: string;
         imageUrl: string;
         description: string;

@@ -98,7 +98,7 @@ const deleteItem = (id: string) => {
     return Item.deleteOne({ _id: { $eq: id } })
 };
 
-const updateItem = async (id: string, newItem:MenuItem.ItemRequest) => {
+const updateItem = async (id: string, newItem: MenuItem.Item) => {
     return Item.updateOne({ _id: { $eq: id } }, newItem)
 };
 
