@@ -8,7 +8,7 @@ export namespace MenuItem{
   price: number;
   category: string;
   ingredients: string[];
-  addedBy?:String
+  addedBy?:any
  };
 
 
@@ -30,5 +30,9 @@ export namespace UserNS {
     authToken: string;
   }
   export interface IUserRequest extends express.Request<{},{},UserNS.IUser,{}> {}
+  export interface LoginRequest extends express.Request<{}, {}, {
+    email: string,
+    password: string
+  }, {}> { }
 
 }

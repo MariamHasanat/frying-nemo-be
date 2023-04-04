@@ -27,7 +27,8 @@ const getItems = async (params: MenuItem.IItemQuery) => {
 
   const items = await Item.find(query, null, { sort: { '_id': -1 } })
   .populate(
-    {path:'addedBy',
+    {
+    path:'addedBy',
     select:'fullName'
   });
 
@@ -49,6 +50,8 @@ const getItem = async (itemId: string) => {
       imageUrl: itemDoc.imageUrl || '',
       ingredients: itemDoc.ingredients,
       price: itemDoc.price || 0,
+      addedBy: itemDoc.addedBy
+
     }
 
     return item;
