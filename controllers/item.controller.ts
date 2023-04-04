@@ -91,6 +91,31 @@ const deleteItem = async (id: string) => {
 
 };
 
+const updateItem = (id: string, item: MenuItemsNS.IItem) => {
+    console.log(item);
+
+    return Item.findByIdAndUpdate(id, {
+        name: item.name,
+        addedBy: item.addedBy,
+        category: item.category,
+        description: item.description,
+        image: item.image,
+        ingredients: item.ingredients,
+        price: item.price
+
+    }).then(value => {
+        if (value) {
+            return new Status(200, 'OK, the item is updated', value);
+        }
+        else {
+            return new Status(500);
+        }
+    }).catch((error: mongoose.Error) => {
+        console.error(error.message);
+        return new Status(500);
+    });
+};
+
 
 
 export default {
@@ -98,4 +123,5 @@ export default {
     getItem,
     createItem,
     deleteItem,
+    updateItem,
 };

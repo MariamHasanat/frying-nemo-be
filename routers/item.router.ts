@@ -38,10 +38,20 @@ router.post('/', itemValidators.itemValidation, async (req: MenuItemsNS.IRequest
 });
 
 router.delete('/:id', async (req: MenuItemsNS.IRequest, res: Response) => {
-    
+
     const deleteVal = await itemController.deleteItem(req.params.id);
     res.status(deleteVal.status).send(deleteVal);
 
+});
+
+router.put('/:id', async (req: MenuItemsNS.IRequest, res: Response) => {
+    try {
+        const updateItem = await itemController.updateItem(req.params.id, req.body);
+        res.status(updateItem.status).send(updateItem);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(new Status(500));
+    }
 });
 
 export default router;
