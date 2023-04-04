@@ -60,13 +60,22 @@ const createItem = (req: MenuItem.IItemRequest) => {
 };
 const removeItem = async (req: express.Request) =>{
   const id = req.body.id
+  await Item.findByIdAndUpdate(id);
   return await Item.findByIdAndDelete(id);
-}
+};
+
+
+const udpateItem = async (req: MenuItem.IItemRequest) =>{
+  return await Item.findByIdAndUpdate(req.params.id, req.body);
+};
+
+
 export default {
   getItems,
   getItem,
   createItem,
   removeItem,
+  udpateItem
 };
 
  

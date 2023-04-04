@@ -42,6 +42,17 @@ router.post("/remove", async (req: express.Request, res: express.Response)=>{
   }
 });
 
+router.post("/update/:id", async (req: MenuItem.IItemRequest , res: express.Response)=>{
+  try {
+    itemController.udpateItem(req);
+    res.status(200).send("updated successfully!");
+  } catch (error) {
+    console.debug(error);
+    res.status(500).send("Failed to find the item!");
+  }
+});
+
+
 router.post(
   "/",
   validateItem,
