@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Item } from "../models/index";
+import { Item, User } from "../models/index";
 import { MenuItem } from "../types/index";
 
 const getItems = async (params: MenuItem.IItemQuery) => {
@@ -24,7 +24,12 @@ const getItems = async (params: MenuItem.IItemQuery) => {
         ]
     }
 
-    const items = await Item.find(query, null, { sort: { '_id': -1 } }); // -1: desc
+    
+
+    const items = await Item.find(query, null, { sort: { '_id': -1 } }).populate({
+        path: 'addedBy',
+        select: ['fullName', 'email', 'imageUrl']
+    }); // -1: desc
     return items;
 }
 
@@ -33,13 +38,14 @@ const getItemById = async (id: string) => {
     if (itemDoc) {
         const item: MenuItem.IItem = {
             name: itemDoc.name,
-            price: itemDoc.price,
+            price: itemDoc.price || 0,
             category: itemDoc.category,
             description: itemDoc.description || '',
             imageURL: itemDoc.imageURL || '',
-            ingredients: itemDoc.ingredients
+            ingredients: itemDoc.ingredients,
+            addedBy: itemDoc.addedBy
         }
-        return itemDoc;
+        return item;
     }
     return null;
 }
@@ -67,10 +73,15 @@ const createItem = (body: MenuItem.IItem) => {
         price: body.price,
         ingredients: body.ingredients,
         description: body.description,
-        imageURL: body.imageURL
+        imageURL: body.imageURL,
+        addedBy: body.addedBy
     })
 
-    return newItem.save() // returning a promise
+    return newItem.save()
+    .then(async () => { // to stotre item in user's created items list
+        await User.findByIdAndUpdate(body.addedBy, { $push: { items: newItem._id } })
+        return true;   
+    })     // returning a promise
 }
 
 export default {
