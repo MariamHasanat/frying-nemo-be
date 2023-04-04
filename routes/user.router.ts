@@ -1,20 +1,21 @@
 import express from 'express';
-import { User } from '../types/index';
+import { User as UserNs } from '../types/index';
 import userController from '../controllers/user.controller';
 
 const router = express.Router();
 
-// router.post('/', async (req: User.IUser, res) => {
-//   try {    
-//     await userController.createItem(req);
-//     res.status(201).send();
-//   } catch (error) {
-//     res.status(500).send("Failed to add user!");
-//   }
+router.post('/signup', async (req: UserNs.IUserRequest, res) => {
+    console.log('welcome!')
+    try {
+        await userController.createUser(req.body);
+        res.status(201).send();
+    } catch (error) {
+        res.status(500).send(`Failed to create user...\n${error}`);
+    }
 
-// });
+});
 
-router.post('/login', (req: User.ILoginRequest, res) => {
+router.post('/login', (req: UserNs.ILoginRequest, res) => {
     console.log('hello world');
     userController.userLogin(req)
         .then((userObj) => {
