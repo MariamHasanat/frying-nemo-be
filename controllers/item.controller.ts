@@ -9,7 +9,6 @@ const getItems = async (params: MenuItem.IItemQuery) => {
     query.price = { $lte: params.maxPrice };
   }
   const categories = JSON.parse(params.categories || "[]");
-  console.debug(categories);
   if (categories.length) {
     query.category = { $in: categories };
   }
