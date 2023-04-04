@@ -32,6 +32,16 @@ router.get(
   }
 );
 
+router.post("/remove", async (req: express.Request, res: express.Response)=>{
+  try {
+    itemController.removeItem(req);
+    res.status(200).send();
+  } catch (error) {
+    console.debug(error);
+    res.status(500).send("Failed to find the item!");
+  }
+});
+
 router.post(
   "/",
   validateItem,

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { Item, User } from "../models/index";
 import { MenuItem } from "../types/index";
-
+import express from "express";
 const getItems = async (params: MenuItem.IItemQuery) => {
   const query: mongoose.FilterQuery<MenuItem.IItem> = {};
 
@@ -58,11 +58,15 @@ const createItem = (req: MenuItem.IItemRequest) => {
     return true; // created successfully
   });
 };
-
+const removeItem = async (req: express.Request) =>{
+  const id = req.body.id
+  return await Item.findByIdAndDelete(id);
+}
 export default {
   getItems,
   getItem,
   createItem,
+  removeItem,
 };
 
  
