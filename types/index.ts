@@ -40,6 +40,10 @@ export namespace User {
     }
 
     export interface IUserRequest extends express.Request<{}, {}, IUser, {}> { }
+    export interface ILoginRequest extends express.Request<{}, {}, {
+        email: string,
+        password: string
+    }, {}> { }
 }
 
 /**

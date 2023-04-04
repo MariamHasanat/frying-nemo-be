@@ -24,7 +24,7 @@ const ItemSchema = new mongoose.Schema({
         type: [String],
         default: []
     },
-    // addedBy: Schema.Types.ObjectId
+    addedBy: Schema.Types.ObjectId
 });
 
 const Item = mongoose.model('item', ItemSchema);

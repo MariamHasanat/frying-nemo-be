@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { itemsRouter } from './routes/index';
+import { itemsRouter, userRouter } from './routes/index';
 import oldItemsRouter from './tmp/get-old-items'
 import cors from 'cors'
 
@@ -12,6 +12,7 @@ const port = process.env.PORT || 3001;
 app.use(cors({ origin: 'http://localhost:3000' }))
 app.use(express.json());
 app.use('/menu', itemsRouter);
+app.use(userRouter);
 app.use('/only-once', oldItemsRouter.router)
 
 app.get('/', (req: Request, res: Response) => {

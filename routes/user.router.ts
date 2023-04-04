@@ -14,4 +14,16 @@ const router = express.Router();
 
 // });
 
+router.post('/login', (req: User.ILoginRequest, res) => {
+    console.log('hello world');
+    userController.userLogin(req)
+        .then((userObj) => {
+            if (userObj) {
+                res.status(200).send(userObj);
+            } else {
+                res.status(400).send("email/password combination does not exist")
+            }
+        }).catch((err) => res.status(500).send(`failed to login user\n${err}`));
+})
+
 export default router;
